@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Book — Botequim Salamares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:    #1E5C7A;
+      --azul-escuro: #163F55;
+      --vermelho:#D4451A;
+      --dourado: #C4922E;
+      --creme:   #F0E4C0;
+      --areia:   #E8D5A3;
+      --branco:  #FAFAF5;
+      --preto:   #1C1C1C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--branco);
+      color: var(--preto);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--azul-escuro);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 56px;
+    }
+    nav .brand { font-family: 'Playfair Display', serif; color: var(--creme); font-size: 1rem; letter-spacing: .05em; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a { color: var(--creme); text-decoration: none; font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .8; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(212,69,26,.15) 0%, transparent 70%);
+    }
+    .hero-tag {
+      font-family: 'Nunito', sans-serif; font-size: .75rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--creme); opacity: .7; /* dourado falha WCAG 2.43:1 em .75rem — creme dá 5.10:1 */
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem);
+      color: var(--branco); line-height: 1.1; margin-bottom: 1rem;
+    }
+    /* vermelho sobre azul = 1.5:1 — acento decorativo em display ≥44px; leitura garantida pelo contexto branco */
+    .hero h1 span { color: var(--vermelho); }
+    .hero-sub {
+      font-size: clamp(.95rem, 2vw, 1.15rem); color: var(--creme);
+      max-width: 560px; margin: 0 auto 2.5rem; opacity: .9;
+    }
+    .hero-tagline {
+      font-family: 'Pacifico', cursive; font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--creme); letter-spacing: .02em; /* creme = 5.10:1; energia da tagline vem da seção vermelha dedicada */
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2rem;
+      font-size: .75rem; color: var(--creme); opacity: .5;
+      letter-spacing: .15em; text-transform: uppercase;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .container-wide { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--vermelho); margin-bottom: .75rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem;
+      margin-bottom: .75rem; color: var(--azul);
+    }
+    p { margin-bottom: 1rem; font-size: 1rem; }
+
+    /* ALTERNATING BG */
+    .bg-azul    { background: var(--azul); color: var(--branco); }
+    .bg-azul h2 { color: var(--branco); }
+    .bg-azul h3 { color: var(--creme); }
+    .bg-azul .section-label { color: var(--creme); opacity: .65; } /* dourado sobre azul = 2.43:1 — reprovado em .7rem */
+    .bg-azul p  { opacity: .9; }
+
+    .bg-creme   { background: var(--creme); }
+    .bg-areia   { background: var(--areia); }
+
+    /* KERNEL */
+    .kernel-box {
+      background: var(--vermelho);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      margin: 2rem 0;
+    }
+    .kernel-box p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+      color: var(--branco); font-style: italic; line-height: 1.5; margin: 0;
+    }
+
+    /* PRISM */
+    .prism-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .prism-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .prism-card .label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--dourado); margin-bottom: .5rem;
+    }
+    .prism-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--branco); margin-bottom: .5rem; }
+    .prism-card p  { font-size: .9rem; color: rgba(250,250,245,.8); margin: 0; }
+
+    /* ARCHETYPE */
+    .archetype-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .arch-card {
+      border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;
+    }
+    .arch-primary { background: var(--vermelho); color: var(--branco); } /* branco/vermelho = 4.04:1 — OK em h3 grande */
+    .arch-secondary { background: var(--dourado); color: var(--preto); } /* preto/dourado = 5.72:1 ✅ — branco/dourado = 2.51:1 reprovado */
+    .arch-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      opacity: .7; margin-bottom: .5rem;
+    }
+    .arch-card h3 { color: var(--branco); font-size: 1.6rem; margin-bottom: .5rem; }
+    .arch-card p  { font-size: .9rem; opacity: .9; margin: 0; }
+
+    /* COLORS */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .color-card { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.1); }
+    .color-swatch { height: 100px; }
+    .color-info { padding: 1rem; background: var(--branco); }
+    .color-info strong { display: block; font-size: .9rem; margin-bottom: .25rem; }
+    .color-info span { font-size: .75rem; color: #666; font-family: monospace; }
+
+    /* TYPOGRAPHY */
+    .type-samples { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+    .type-sample { padding: 2rem; background: var(--branco); border-radius: 12px; border-left: 4px solid var(--vermelho); }
+    .type-sample .meta { font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #999; margin-bottom: .75rem; }
+    .t-display  { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; line-height: 1.1; color: var(--azul); }
+    .t-subtitle { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--azul); }
+    .t-body     { font-family: 'Nunito', sans-serif; font-size: 1rem; color: var(--preto); }
+    .t-pacifico { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--vermelho); }
+
+    /* ONLYNESS */
+    .onlyness-box {
+      border: 2px solid var(--vermelho); border-radius: 16px;
+      padding: 2.5rem; margin: 2rem 0; position: relative;
+    }
+    .onlyness-box::before {
+      content: '"'; position: absolute; top: -1rem; left: 1.5rem;
+      font-family: 'Playfair Display', serif; font-size: 4rem;
+      color: var(--vermelho); line-height: 1;
+    }
+    .onlyness-box p {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic; margin: 0; line-height: 1.5;
+    }
+
+    /* STORYBRAND */
+    .sb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .sb-card { padding: 1.5rem; border-radius: 12px; background: var(--creme); }
+    .sb-card .num { font-size: 2rem; font-weight: 900; color: var(--vermelho); line-height: 1; margin-bottom: .5rem; }
+    .sb-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: .5rem; color: var(--azul); }
+    .sb-card p  { font-size: .85rem; margin: 0; color: var(--preto); }
+
+    /* VOICE */
+    .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .voice-do, .voice-dont {
+      padding: 1.5rem; border-radius: 12px;
+    }
+    .voice-do   { background: rgba(196,146,46,.15); border-left: 4px solid var(--dourado); }
+    .voice-dont { background: rgba(212,69,26,.1);  border-left: 4px solid var(--vermelho); }
+    .voice-do h4   { color: var(--azul); margin-bottom: .75rem; }
+    .voice-dont h4 { color: var(--vermelho); margin-bottom: .75rem; }
+    .voice-do ul, .voice-dont ul { padding-left: 1.2rem; font-size: .9rem; }
+    .voice-do li, .voice-dont li { margin-bottom: .4rem; }
+
+    /* POSITIONING MAP */
+    .map-wrapper {
+      margin: 2rem 0; padding: 2rem;
+      background: rgba(255,255,255,.05); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .map-axis {
+      position: relative; height: 320px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .axis-h, .axis-v {
+      position: absolute; background: rgba(255,255,255,.3);
+    }
+    .axis-h { height: 1px; width: 100%; top: 50%; }
+    .axis-v { width: 1px; height: 100%; left: 50%; }
+    .axis-label {
+      position: absolute; font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: rgba(250,250,245,.6);
+    }
+    .map-dot {
+      position: absolute; width: 14px; height: 14px;
+      border-radius: 50%; transform: translate(-50%, -50%);
+    }
+    .map-dot-label {
+      position: absolute; font-size: .8rem; font-weight: 700;
+      color: var(--branco); white-space: nowrap;
+    }
+
+    /* APPLICATIONS */
+    .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .app-card {
+      background: var(--branco); border-radius: 12px; padding: 1.5rem;
+      border-top: 4px solid var(--azul); box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .app-card.priority-high { border-top-color: var(--vermelho); }
+    .app-card.priority-med  { border-top-color: var(--dourado); }
+    .app-priority {
+      display: inline-block; font-size: .65rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      padding: .2rem .6rem; border-radius: 4px; margin-bottom: .75rem;
+    }
+    .p-alta   { background: rgba(212,69,26,.12); color: var(--vermelho); }
+    .p-media  { background: rgba(196,146,46,.15); color: #8a6010; }
+    .p-baixa  { background: rgba(30,92,122,.1);   color: var(--azul); }
+    .app-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--azul); margin-bottom: .5rem; }
+    .app-card p  { font-size: .85rem; margin: 0; }
+
+    /* ZE MARE */
+    .mascote-section { text-align: center; }
+    .mascote-emoji { font-size: 5rem; margin-bottom: 1rem; display: block; }
+    .mascote-name {
+      font-family: 'Pacifico', cursive; font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--vermelho); margin-bottom: .5rem;
+    }
+    .traits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+    .trait-card {
+      background: rgba(255,255,255,.08); border-radius: 10px; padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,.12); text-align: left;
+    }
+    .trait-card .icon { font-size: 1.5rem; margin-bottom: .5rem; display: block; }
+    .trait-card h5 { font-size: .85rem; font-weight: 700; color: var(--creme); margin-bottom: .25rem; }
+    .trait-card p  { font-size: .8rem; opacity: .8; margin: 0; }
+
+    .expressions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .expr-card {
+      background: rgba(255,255,255,.06); border-radius: 10px; padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .expr-card .num { font-size: 1.5rem; font-weight: 900; color: var(--vermelho); }
+    .expr-card h5 { font-size: .9rem; color: var(--creme); margin: .25rem 0; }
+    .expr-card p  { font-size: .8rem; opacity: .75; margin: 0; }
+    .expr-quote {
+      font-family: 'Pacifico', cursive; font-size: .85rem;
+      color: var(--dourado); margin-top: .5rem; display: block;
+    }
+
+    /* PRIORITY TABLE */
+    .priority-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    .priority-table th { background: var(--azul); color: var(--branco); padding: .75rem 1rem; text-align: left; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+    .priority-table td { padding: .75rem 1rem; font-size: .9rem; border-bottom: 1px solid var(--areia); }
+    .priority-table tr:nth-child(even) td { background: rgba(240,228,192,.3); }
+    .badge { display: inline-block; padding: .2rem .6rem; border-radius: 4px; font-size: .7rem; font-weight: 700; }
+    .badge-red    { background: rgba(212,69,26,.15); color: var(--vermelho); }
+    .badge-orange { background: rgba(196,146,46,.2); color: #8a6010; }
+    .badge-blue   { background: rgba(30,92,122,.12); color: var(--azul); }
+    .badge-gray   { background: #eee; color: #666; }
+
+    /* TAGLINE HERO */
+    .tagline-display {
+      text-align: center; padding: 4rem 2rem;
+      background: var(--vermelho);
+    }
+    .tagline-display p {
+      font-family: 'Pacifico', cursive; font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--branco); margin: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--azul-escuro); color: var(--creme);
+      text-align: center; padding: 3rem 2rem;
+    }
+    footer .logo-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: .1em; margin-bottom: .5rem; }
+    footer p { font-size: .8rem; opacity: .6; margin: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .archetype-pair { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .prism-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">Botequim Salamares</span>
+  <ul>
+    <li><a href="#estrategia">Estratégia</a></li>
+    <li><a href="#identidade">Identidade</a></li>
+    <li><a href="#cores">Cores</a></li>
+    <li><a href="#voz">Voz</a></li>
+    <li><a href="#mascote">Zé Maré</a></li>
+    <li><a href="#aplicacoes">Aplicações</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-tag">Brand Book — Documento Estratégico de Marca</p>
+  <img src="../referências/assets/logomarca.jpg" alt="Logo Botequim Salamares" style="width:220px;max-width:55vw;margin-bottom:2rem;border-radius:8px;">
+  <h1>Botequim<br><span>Salamares</span></h1>
+  <p class="hero-sub">O único botequim da Grande Vitória onde o caranguejo é o protagonista absoluto. Praia da Costa, Vila Velha — ES.</p>
+  <p class="hero-tagline">Vem sujar as mãos.</p>
+  <p class="hero-scroll">↓ Role para explorar</p>
+</section>
+
+<!-- ESTRATÉGIA -->
+<section id="estrategia" class="bg-azul">
+  <div class="container">
+    <p class="section-label">Fundação Estratégica</p>
+    <h2>O DNA da Marca</h2>
+
+    <p>O Botequim Salamares não é apenas um restaurante de frutos do mar. É o guardião de um ritual capixaba — o caranguejo servido do jeito certo, sem frescura, com receita de família e com a filosofia de que a mesa nunca tem hora para acabar.</p>
+
+    <div class="kernel-box">
+      <p>"Autenticidade capixaba, sem frescura e sem cerimônia, servida com caranguejo e com afeto."</p>
+    </div>
+
+    <p class="section-label" style="margin-top:3rem;">Brand Identity Statement</p>
+    <div class="onlyness-box" style="border-color:var(--creme);">
+      <p style="color:var(--branco);">O Botequim Salamares é o guardião do caranguejo capixaba em Vila Velha — um lugar onde a autenticidade do mar se encontra com a filosofia do botequim: informal por princípio, acolhedor por natureza, e engraçado por vocação. Aqui, ninguém chega como cliente e sai como estranho.</p>
+    </div>
+
+    <p class="section-label" style="margin-top:3rem;">Onlyness — Diferenciação Radical</p>
+    <div class="onlyness-box" style="border-color:var(--vermelho);">
+      <p style="color:var(--branco);">O único botequim da Grande Vitória onde o caranguejo é o protagonista absoluto.</p>
+    </div>
+
+    <!-- PRISM -->
+    <p class="section-label" style="margin-top:3rem;">Prisma de Identidade (Kapferer)</p>
+    <div class="prism-grid">
+      <div class="prism-card">
+        <p class="label">Físico</p>
+        <h4>O corpo da marca</h4>
+        <p>Timão náutico, azul oceano profundo, dourado do timão, creme da corda — e o vermelho-laranja do caranguejo como cor de energia.</p>
+      </div>
+      <div class="prism-card">
+        <p class="label">Personalidade</p>
+        <h4>O caráter</h4>
+        <p>Debochado com afeto. Engraçado sem ser infantil. Acolhedor sem ser servil. O amigo que faz a mesa durar quatro horas.</p>
+      </div>
+      <div class="prism-card">
+        <p class="label">Cultura</p>
+        <h4>Os valores</h4>
+        <p>Capixabidade genuína. Segunda geração de bar. Receitas de família preservadas. O botequim como filosofia democrática.</p>
+      </div>
+      <div class="prism-card">
+        <p class="label">Relacionamento</p>
+        <h4>A conexão</h4>
+        <p>Compadre: amigo de confiança que sempre está do seu lado. Anfitrião: recebe, apresenta, acolhe — especialmente novos.</p>
+      </div>
+      <div class="prism-card">
+        <p class="label">Reflexo</p>
+        <h4>O cliente retratado</h4>
+        <p>Quem escolhe o genuíno em vez do aparente. Quem não precisa de frescura para reconhecer qualidade. Quem não tem medo de sujar as mãos.</p>
+      </div>
+      <div class="prism-card">
+        <p class="label">Mentalização</p>
+        <h4>Como o cliente se vê</h4>
+        <p>"Eu conheço os melhores lugares." "Sou de verdade." "Faço parte daqui." Gosto genuíno, não status econômico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARQUÉTIPO -->
+<section id="identidade" class="bg-creme">
+  <div class="container">
+    <p class="section-label">Arquétipo de Marca</p>
+    <h2>A Personalidade</h2>
+    <p>A marca Botequim Salamares habita a tensão produtiva entre dois arquétipos que, juntos, criam algo único: entretenimento COM pertencimento.</p>
+    <div class="archetype-pair">
+      <div class="arch-card arch-primary">
+        <p class="arch-badge">Arquétipo Principal</p>
+        <h3>O Bobo da Corte<br><small style="font-size:.7em;opacity:.8">(Jester)</small></h3>
+        <p>Celebração, irreverência, alegria genuína. O personagem que liberta as pessoas da seriedade do cotidiano. Comer caranguejo é, por natureza, um ato Jester — você suja as mãos, faz barulho, ri sem cerimônia.</p>
+      </div>
+      <div class="arch-card arch-secondary">
+        <p class="arch-badge">Arquétipo Secundário</p>
+        <h3>O Cara Comum<br><small style="font-size:.7em;opacity:.8">(Everyman)</small></h3>
+        <p>Autenticidade, pertencimento, família. Ancora o Jester na realidade. Explica a segunda geração, as receitas preservadas, o acolhimento que faz o morador local se sentir em casa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSICIONAMENTO -->
+<section class="bg-azul">
+  <div class="container">
+    <p class="section-label">Posicionamento Competitivo (Al Ries)</p>
+    <h2>A Posição na Mente</h2>
+    <p>Marketing é uma batalha de percepções, não de produtos. A palavra que o Botequim Salamares deve possuir na mente do consumidor de Vila Velha:</p>
+
+    <div class="kernel-box" style="text-align:center;">
+      <p style="font-size:clamp(1.5rem,4vw,2.5rem); font-style:normal; font-weight:900; letter-spacing:.05em;">O BOTEQUIM DO CARANGUEJO</p>
+    </div>
+
+    <p>Ilha do Caranguejo e Caranguejo do Assis são restaurantes de caranguejo. O Botequim Salamares é o botequim do caranguejo. Mesma audiência, ocasiões distintas. Coexistência de categoria — não disputa de território.</p>
+
+    <div class="map-wrapper">
+      <div class="map-axis">
+        <div class="axis-h"></div>
+        <div class="axis-v"></div>
+        <span class="axis-label" style="top:8px;left:50%;transform:translateX(-50%);">CARANGUEJO ESPECIALIZADO</span>
+        <span class="axis-label" style="bottom:8px;left:50%;transform:translateX(-50%);">FRUTOS DO MAR GENÉRICO</span>
+        <span class="axis-label" style="left:8px;top:50%;transform:translateY(-50%);">RESTAURANTE</span>
+        <span class="axis-label" style="right:8px;top:50%;transform:translateY(-50%);">BOTEQUIM</span>
+        <!-- dots -->
+        <div class="map-dot" style="background:rgba(250,250,245,.5);top:28%;left:28%;"></div>
+        <span class="map-dot-label" style="top:22%;left:12%;font-size:.75rem;color:rgba(250,250,245,.7);">Ilha do Caranguejo</span>
+        <div class="map-dot" style="background:rgba(250,250,245,.5);top:32%;left:36%;"></div>
+        <span class="map-dot-label" style="top:36%;left:22%;font-size:.75rem;color:rgba(250,250,245,.7);">Caranguejo do Assis</span>
+        <div class="map-dot" style="background:var(--vermelho);top:30%;left:72%;width:18px;height:18px;box-shadow:0 0 0 4px rgba(212,69,26,.3);"></div>
+        <span class="map-dot-label" style="top:22%;left:58%;font-size:.85rem;font-weight:700;color:var(--vermelho);">Botequim Salamares</span>
+      </div>
+    </div>
+
+    <p style="font-size:.85rem;opacity:.7;text-align:center;">O Salamares ocupa sozinho o quadrante Botequim + Caranguejo Especializado.</p>
+  </div>
+</section>
+
+<!-- STORYBRAND -->
+<section>
+  <div class="container">
+    <p class="section-label">Mensagem da Marca (Donald Miller)</p>
+    <h2>O StoryBrand</h2>
+    <p>O cliente é o herói. O Botequim Salamares é o guia. A história que conta a marca:</p>
+    <div class="sb-grid">
+      <div class="sb-card">
+        <div class="num">1</div>
+        <h4>Herói</h4>
+        <p>Quem quer uma celebração genuína — sem frescura, sem pressa, com comida que tem história.</p>
+      </div>
+      <div class="sb-card">
+        <div class="num">2</div>
+        <h4>Problema</h4>
+        <p>A pressa e a impessoalidade. A refeição que acaba rápido, sem conversa, sem memória.</p>
+      </div>
+      <div class="sb-card">
+        <div class="num">3</div>
+        <h4>Guia</h4>
+        <p>Botequim Salamares — 2ª geração, receita de família, único botequim de caranguejo da região.</p>
+      </div>
+      <div class="sb-card">
+        <div class="num">4</div>
+        <h4>Plano</h4>
+        <p>Chega → Pede o caranguejo → Celebra. Porque aqui a mesa não tem hora para acabar.</p>
+      </div>
+      <div class="sb-card">
+        <div class="num">5</div>
+        <h4>Ação</h4>
+        <p><strong>Reserve sua mesa.</strong> Ou chega direto. A gente tem lugar.</p>
+      </div>
+      <div class="sb-card">
+        <div class="num">6</div>
+        <h4>Sucesso</h4>
+        <p>Uma celebração que vira memória — com quem você ama, do jeito certo, no lugar certo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAGLINE -->
+<div class="tagline-display">
+  <p>Vem sujar as mãos.</p>
+</div>
+
+<!-- CORES -->
+<section id="cores">
+  <div class="container">
+    <p class="section-label">Sistema Visual (Alina Wheeler)</p>
+    <h2>Paleta de Cores</h2>
+    <p>O sistema cromático do Salamares parte da tensão entre o azul do mar e o vermelho do caranguejo — cores complementares que criam máximo contraste e memorabilidade.</p>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1E5C7A;"></div>
+        <div class="color-info">
+          <strong>Azul Oceano</strong>
+          <span>#1E5C7A</span><br>
+          <span style="font-size:.75rem;color:#888;">Cor primária — fundamento</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#D4451A;"></div>
+        <div class="color-info">
+          <strong>Vermelho Caranguejo</strong>
+          <span>#D4451A</span><br>
+          <span style="font-size:.75rem;color:#888;">Cor de energia — CTAs</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#C4922E;"></div>
+        <div class="color-info">
+          <strong>Dourado Timão</strong>
+          <span>#C4922E</span><br>
+          <span style="font-size:.75rem;color:#888;">Detalhe — herança</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F0E4C0; border:1px solid #ddd;"></div>
+        <div class="color-info">
+          <strong>Creme Maré</strong>
+          <span>#F0E4C0</span><br>
+          <span style="font-size:.75rem;color:#888;">Fundo quente</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#FAFAF5; border:1px solid #ddd;"></div>
+        <div class="color-info">
+          <strong>Branco Espuma</strong>
+          <span>#FAFAF5</span><br>
+          <span style="font-size:.75rem;color:#888;">Textos, ícones</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1C1C1C;"></div>
+        <div class="color-info">
+          <strong>Preto Fundo do Mar</strong>
+          <span>#1C1C1C</span><br>
+          <span style="font-size:.75rem;color:#888;">Corpo de texto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOGRAFIA -->
+<section class="bg-creme">
+  <div class="container">
+    <p class="section-label">Tipografia</p>
+    <h2>Sistema de Fontes</h2>
+    <div class="type-samples">
+      <div class="type-sample">
+        <p class="meta">Display / Títulos — Playfair Display Black</p>
+        <p class="t-display">Botequim Salamares</p>
+        <p class="t-subtitle">O Ritual do Caranguejo Capixaba</p>
+        <p style="font-size:.8rem;color:#999;margin-top:.5rem;">Títulos, headlines, capas de cardápio, nomes de seção</p>
+      </div>
+      <div class="type-sample">
+        <p class="meta">Corpo / Texto — Nunito Regular & SemiBold</p>
+        <p class="t-body">Receita de família. Mesa sem frescura. Na Praia da Costa, Vila Velha.</p>
+        <p class="t-body"><strong>Descrições de pratos, legendas, bio do Instagram, textos de site.</strong></p>
+        <p style="font-size:.8rem;color:#999;margin-top:.5rem;">Regular para corpo · SemiBold para subtítulos e labels</p>
+      </div>
+      <div class="type-sample">
+        <p class="meta">Personalidade — Pacifico Regular (uso máx. 10%)</p>
+        <p class="t-pacifico">Vem sujar as mãos.</p>
+        <p style="font-size:.8rem;color:#999;margin-top:.5rem;">Voz do Zé Maré, stickers, tagline em peças especiais. Nunca para títulos institucionais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOZ -->
+<section id="voz" class="bg-azul">
+  <div class="container">
+    <p class="section-label">Tom de Voz</p>
+    <h2>Como a Marca Fala</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0;">
+      <div style="text-align:center;">
+        <div style="font-size:2rem;font-weight:900;color:var(--vermelho);">2/10</div>
+        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em;">Formal</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:2rem;font-weight:900;color:var(--vermelho);">9/10</div>
+        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em;">Brincalhão</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:2rem;font-weight:900;color:var(--vermelho);">7/10</div>
+        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em;">Irreverente</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:2rem;font-weight:900;color:var(--vermelho);">9/10</div>
+        <div style="font-size:.75rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em;">Entusiasmado</div>
+      </div>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-do" style="background:rgba(196,146,46,.15);border-left:4px solid var(--dourado);">
+        <h4 style="color:var(--creme);">A marca SEMPRE</h4>
+        <ul style="color:var(--branco);">
+          <li>Fala como gente fala no boteco</li>
+          <li>Ri de si mesma antes de rir dos outros</li>
+          <li>Celebra comer com as mãos e sujar o babador</li>
+          <li>Usa referências capixabas sem explicar</li>
+          <li>Trata o seguidor como alguém da mesa</li>
+          <li>Responde comentários com personalidade</li>
+        </ul>
+      </div>
+      <div class="voice-dont" style="background:rgba(212,69,26,.15);border-left:4px solid var(--vermelho);">
+        <h4 style="color:var(--creme);">A marca NUNCA</h4>
+        <ul style="color:var(--branco);">
+          <li>Usa "experiência gastronômica" ou "curadoria"</li>
+          <li>Finge ser fine dining</li>
+          <li>Escreve "Prezado cliente"</li>
+          <li>Posta conteúdo sem energia</li>
+          <li>Se leva a sério demais</li>
+          <li>Compara-se diretamente com concorrentes</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,.06);border-radius:12px;">
+      <p class="section-label">Exemplos de Voz</p>
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <p style="font-family:'Pacifico',cursive;color:var(--creme);font-size:1rem;margin:0;">"Abriu! Caranguejo no forno, batidinha gelando. Vem que tem lugar."</p>
+        <p style="font-family:'Pacifico',cursive;color:var(--creme);font-size:1rem;margin:0;">"O caranguejo hoje tá assim: perfeito. Como sempre."</p>
+        <p style="font-family:'Pacifico',cursive;color:var(--creme);font-size:1rem;margin:0;">"Que isso, você é sempre bem-vindo na nossa mesa. Volta logo."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZÉ MARÉ -->
+<section id="mascote" class="bg-azul" style="padding-top:0;">
+  <div class="container">
+    <div style="height:1px;background:rgba(255,255,255,.15);margin-bottom:5rem;"></div>
+    <div class="mascote-section">
+      <span class="mascote-emoji">🦀</span>
+      <p class="mascote-name">Zé Maré</p>
+      <p style="color:var(--creme);max-width:560px;margin:0 auto 2rem;opacity:.9;">O caranguejo que saiu do oceano, chegou na Praia da Costa, provou a batidinha do Hasler e decidiu que não voltava mais. Hoje é o rosto do Salamares.</p>
+    </div>
+
+    <div class="traits-grid">
+      <div class="trait-card">
+        <span class="icon">😄</span>
+        <h5>Debochado com afeto</h5>
+        <p>Ri COM você, nunca DE você. Humor que aproxima.</p>
+      </div>
+      <div class="trait-card">
+        <span class="icon">🏆</span>
+        <h5>Orgulhoso (do jeito certo)</h5>
+        <p>Sabe que o Salamares tem o melhor caranguejo e não esconde.</p>
+      </div>
+      <div class="trait-card">
+        <span class="icon">🤗</span>
+        <h5>Acolhedor de verdade</h5>
+        <p>Abre as garras para todo mundo que chega. Primeiro a dizer bem-vindo.</p>
+      </div>
+      <div class="trait-card">
+        <span class="icon">📖</span>
+        <h5>Contador de causos</h5>
+        <p>Conhece a história de cada mesa, receita e cliente antigo.</p>
+      </div>
+      <div class="trait-card">
+        <span class="icon">🦀</span>
+        <h5>Sem frescura</h5>
+        <p>Come com as garras, faz barulho, não pede desculpas.</p>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top:3rem;">7 Expressões Fundamentais</p>
+    <div class="expressions-grid">
+      <div class="expr-card">
+        <div class="num">1</div>
+        <h5>Sorriso Aberto</h5>
+        <p>Principal. Boas-vindas, celebração.</p>
+        <span class="expr-quote">"Chegou! Que bom!"</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">2</div>
+        <h5>Piscadela</h5>
+        <p>Promoções, segredos, ofertas.</p>
+        <span class="expr-quote">"Só hoje."</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">3</div>
+        <h5>Garras Abertas</h5>
+        <p>Acolhimento, convite.</p>
+        <span class="expr-quote">"A mesa tá esperando."</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">4</div>
+        <h5>Garra Apontando</h5>
+        <p>Indicação de prato, destaque.</p>
+        <span class="expr-quote">"Pede o caranguejo."</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">5</div>
+        <h5>Com Babador</h5>
+        <p>Antecipação, produto.</p>
+        <span class="expr-quote">"Pronto. Pode trazer."</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">6</div>
+        <h5>Braços Cruzados</h5>
+        <p>Ironia cômica, engajamento.</p>
+        <span class="expr-quote">"Ainda não foi lá?"</span>
+      </div>
+      <div class="expr-card">
+        <div class="num">7</div>
+        <h5>Com Prancha</h5>
+        <p>Template variável, avisos.</p>
+        <span class="expr-quote">[conteúdo livre]</span>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;padding:1.5rem;background:rgba(255,255,255,.06);border-radius:12px;">
+      <p class="section-label">Paleta do Personagem</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <div style="width:32px;height:32px;border-radius:6px;background:#D4451A;"></div>
+          <span style="font-size:.8rem;color:var(--creme);">Corpo #D4451A</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <div style="width:32px;height:32px;border-radius:6px;background:#E8C870;"></div>
+          <span style="font-size:.8rem;color:var(--creme);">Barriga #E8C870</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <div style="width:32px;height:32px;border-radius:6px;background:#C4922E;"></div>
+          <span style="font-size:.8rem;color:var(--creme);">Detalhes #C4922E</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <div style="width:32px;height:32px;border-radius:6px;background:#FAFAF5;border:1px solid rgba(255,255,255,.3);"></div>
+          <span style="font-size:.8rem;color:var(--creme);">Olhos #FAFAF5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APLICAÇÕES -->
+<section id="aplicacoes">
+  <div class="container-wide">
+    <p class="section-label">Touchpoints da Marca</p>
+    <h2>Aplicações</h2>
+    <p>Cada ponto de contato reforça a posição: O Botequim do Caranguejo. Nenhuma aplicação é neutra.</p>
+
+    <div class="app-grid">
+      <div class="app-card priority-high">
+        <span class="app-priority p-alta">Alta — Imediata</span>
+        <h4>🗞️ Papel de Mesa Kraft</h4>
+        <p>O canvas da experiência. Rolo kraft com Zé Maré, guia de como comer caranguejo, frases da marca e QR Code. Reforça o ritual a cada refeição.</p>
+      </div>
+      <div class="app-card priority-high">
+        <span class="app-priority p-alta">Alta — Imediata</span>
+        <h4>🧣 Babador Personalizado</h4>
+        <p>Azul oceano + Zé Maré + "Vem sujar as mãos." Entregue antes do prato. Peça fotográfica espontânea — o cliente veste e posta.</p>
+      </div>
+      <div class="app-card priority-high">
+        <span class="app-priority p-alta">Alta — Imediata</span>
+        <h4>📱 iFood — Corrigir Destaque</span></h4>
+        <p>Substituir hambúrguer por caranguejo no destaque principal. Descrição na voz do Zé Maré. Alinhamento imediato entre posição e canal.</p>
+      </div>
+      <div class="app-card priority-high">
+        <span class="app-priority p-alta">Alta — 30 dias</span>
+        <h4>📖 Cardápio Completo</h4>
+        <p>Capa azul oceano, abertura com foto do caranguejo, caranguejo em destaque vermelho na primeira seção. Papel 300g fosco.</p>
+      </div>
+      <div class="app-card priority-high">
+        <span class="app-priority p-alta">Alta — 30 dias</span>
+        <h4>🦀 Zé Maré — 3D Final</h4>
+        <p>7 expressões em PNG + vetor simplificado + stickers WhatsApp. Prioridade máxima para consistência de personalidade.</p>
+      </div>
+      <div class="app-card priority-med">
+        <span class="app-priority p-media">Média — 60 dias</span>
+        <h4>📸 Templates Instagram</h4>
+        <p>3 templates: Base (azul oceano), Energia (vermelho caranguejo), Zé Maré. Feed consistente com a personalidade da marca.</p>
+      </div>
+      <div class="app-card priority-med">
+        <span class="app-priority p-media">Média — 60 dias</span>
+        <h4>💬 Stickers WhatsApp</h4>
+        <p>8 stickers do Zé Maré para atendimento humanizado: chegada, confirmação, agradecimento, encerramento.</p>
+      </div>
+      <div class="app-card priority-med">
+        <span class="app-priority p-media">Média — 60 dias</span>
+        <h4>🎽 Uniforme da Equipe</h4>
+        <p>Avental azul oceano com logo bordado. Camiseta com timão nas costas. Cria identidade visual no atendimento.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-priority p-baixa">Normal — 90 dias</span>
+        <h4>🗿 Totem do Zé Maré</h4>
+        <p>Placa recortada em tamanho natural (±1,20m) na entrada. Ponto de foto espontâneo. Plaquinha trocável na garra.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-priority p-baixa">Normal — 90 dias</span>
+        <h4>🛍️ Embalagem Takeaway</h4>
+        <p>Sacola kraft com Zé Maré lateral. Caixa de caranguejo com instruções de reaquecimento na voz do personagem.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-priority p-baixa">2º ponto</span>
+        <h4>🏠 Fachada</h4>
+        <p>Logo em relevo metálico dourado sobre painel azul oceano. Iluminação indireta. Placa de horários com tipografia da marca.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-priority p-baixa">2º ponto</span>
+        <h4>🌐 Site</h4>
+        <p>Header azul oceano, headline "O Botequim do Caranguejo Capixaba", CTA em vermelho caranguejo. Foto do caranguejo protagonizando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGRAS -->
+<section class="bg-creme">
+  <div class="container">
+    <p class="section-label">Princípios do Sistema Visual</p>
+    <h2>As 7 Regras da Marca</h2>
+    <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;">
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">1</span>
+        <div><strong>Azul Oceano é o lar.</strong> Toda comunicação parte daqui. Quando em dúvida sobre o fundo, use azul oceano.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">2</span>
+        <div><strong>Vermelho Caranguejo move as pessoas.</strong> É a cor dos botões, CTAs e destaques. Nunca use como fundo dominante.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">3</span>
+        <div><strong>O timão é suficiente.</strong> O ícone isolado já representa a marca. Use as variações pré-aprovadas — nunca recrie.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">4</span>
+        <div><strong>Zé Maré é o coração visível.</strong> Carrega o Jester em todos os canais. Nunca substitui o logo — são camadas distintas.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">5</span>
+        <div><strong>Consistência não é uniformidade.</strong> Os templates permitem variação de conteúdo dentro dos parâmetros. Paleta e tipografia são inegociáveis.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">6</span>
+        <div><strong>Cada touchpoint é uma celebração.</strong> Nenhum material é frio ou corporativo. Se não tem energia, não está certo.</div>
+      </div>
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:white;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);">
+        <span style="font-size:1.5rem;min-width:2rem;">7</span>
+        <div><strong>O caranguejo sempre protagoniza.</strong> Em qualquer foto de produto, o caranguejo tem posição de destaque. Sempre.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERTAS EXPANSÃO -->
+<section class="bg-azul">
+  <div class="container">
+    <p class="section-label">Expansão — 2º Ponto</p>
+    <h2>Alertas de Posicionamento</h2>
+    <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;">
+      <div style="padding:1.25rem;background:rgba(255,255,255,.06);border-radius:10px;border-left:3px solid var(--vermelho);">
+        <h4 style="color:var(--creme);margin-bottom:.5rem;">Almoço Executivo — Expansão de Ocasião, Não de Categoria</h4>
+        <p style="font-size:.9rem;opacity:.85;margin:0;">O almoço executivo é uma expansão de horário, não de identidade. O nome correto é "Almoço do Botequim Salamares" — nunca "cardápio executivo". O caranguejo deve aparecer no menu de almoço, mesmo que em versões adaptadas. A atmosfera de botequim deve ser mantida.</p>
+      </div>
+      <div style="padding:1.25rem;background:rgba(255,255,255,.06);border-radius:10px;border-left:3px solid var(--dourado);">
+        <h4 style="color:var(--creme);margin-bottom:.5rem;">O Nome é Botequim Salamares — Sem Sub-marcas</h4>
+        <p style="font-size:.9rem;opacity:.85;margin:0;">O 2º ponto deve se chamar Botequim Salamares. 24.700 seguidores construídos sob um nome. Uma segunda marca significa começar do zero.</p>
+      </div>
+      <div style="padding:1.25rem;background:rgba(255,255,255,.06);border-radius:10px;border-left:3px solid var(--dourado);">
+        <h4 style="color:var(--creme);margin-bottom:.5rem;">Mesma Posição, Mesma Alma, Maior Capacidade</h4>
+        <p style="font-size:.9rem;opacity:.85;margin:0;">A segunda unidade é maior em espaço — idêntica em essência. Nunca tente parecer mais restaurante para atrair mais público. A força vem do foco.</p>
+      </div>
+      <div style="padding:1.25rem;background:rgba(255,255,255,.06);border-radius:10px;border-left:3px solid rgba(255,255,255,.3);">
+        <h4 style="color:var(--creme);margin-bottom:.5rem;">Não Dispute o Território do Ilha do Caranguejo</h4>
+        <p style="font-size:.9rem;opacity:.85;margin:0;">O Salamares é #1 na sua própria categoria. Nunca se posicione por comparação com os outros players. Você não precisa disputar o que eles têm — você tem algo que eles não têm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-text">BOTEQUIM SALAMARES</div>
+  <p>Praia da Costa · Vila Velha · ES · @sala_mares</p>
+  <p style="margin-top:.5rem;">Brand Book — Documento estratégico confidencial · 2026</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompts Canva — Botequim Salamares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700;800&family=Pacifico&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --azul:#1E5C7A;--azul-e:#163F55;--vermelho:#D4451A;--dourado:#C4922E;
+      --creme:#F0E4C0;--branco:#FAFAF5;--preto:#1C1C1C;--areia:#E8D5A3;
+      --bg:#F7F3EA;--card:#FFFFFF;--border:#E0D5C0;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--preto);line-height:1.65}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--azul-e);
+        display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:52px}
+    nav .brand{font-family:'Playfair Display',serif;color:var(--creme);font-size:.9rem}
+    nav .counter{font-size:.7rem;color:var(--creme);opacity:.6;font-weight:700;letter-spacing:.1em}
+
+    /* HERO */
+    .hero{background:var(--azul);padding:6rem 2rem 3rem;text-align:center}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:var(--branco);margin-bottom:.75rem}
+    .hero p{color:var(--creme);opacity:.85;max-width:680px;margin:0 auto .5rem}
+    .hero .badge{display:inline-block;background:var(--vermelho);color:var(--branco);
+                 padding:.35rem 1rem;border-radius:50px;font-size:.75rem;font-weight:800;
+                 letter-spacing:.12em;text-transform:uppercase;margin-top:.75rem}
+
+    /* LAYOUT */
+    .wrap{max-width:980px;margin:0 auto;padding:0 1.5rem}
+
+    /* PASSPORT */
+    .passport{background:var(--azul-e);border-radius:12px;padding:2rem;margin:2rem auto;max-width:980px;margin-left:auto;margin-right:auto}
+    .passport h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--branco);margin-bottom:1.25rem}
+    .passport .p-copy{background:rgba(0,0,0,.3);border-radius:8px;padding:1.25rem;
+                      font-family:'JetBrains Mono',monospace;font-size:.75rem;
+                      color:var(--creme);white-space:pre-wrap;line-height:1.7;overflow-x:auto}
+    .passport .p-note{font-size:.8rem;color:var(--creme);opacity:.65;margin-top:.75rem}
+
+    /* SECTION DIVIDER */
+    .section-divider{padding:3rem 0 1.5rem}
+    .section-divider .cat-label{font-size:.65rem;font-weight:800;letter-spacing:.25em;
+                                 text-transform:uppercase;color:var(--vermelho)}
+    .section-divider h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--azul);margin-top:.3rem}
+
+    /* APPLICATION CARD */
+    .app-card{background:var(--card);border-radius:14px;padding:0;margin-bottom:2rem;
+              border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .app-header{padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
+                border-bottom:1px solid var(--border)}
+    .app-num{background:var(--azul);color:var(--branco);width:36px;height:36px;border-radius:50%;
+             display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0}
+    .app-header h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--azul)}
+    .app-header .prio{font-size:.6rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+                      padding:.15rem .5rem;border-radius:4px;margin-left:auto;white-space:nowrap}
+    .prio-alta{background:rgba(212,69,26,.12);color:var(--vermelho)}
+    .prio-media{background:rgba(196,146,46,.15);color:#7a5010}
+    .prio-baixa{background:rgba(30,92,122,.1);color:var(--azul)}
+
+    .app-body{padding:1.5rem}
+    .app-body .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .app-body .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+
+    /* SPEC ROW */
+    .spec-row{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin-bottom:1rem;
+              padding:.75rem 1rem;background:#F9F5EE;border-radius:8px}
+    .spec-item label{display:block;font-size:.6rem;font-weight:800;letter-spacing:.15em;
+                     text-transform:uppercase;color:#888;margin-bottom:.15rem}
+    .spec-item p{font-size:.82rem;color:var(--preto);margin:0}
+
+    /* COLOR CHIPS */
+    .color-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0 1rem}
+    .chip{display:flex;align-items:center;gap:.4rem;padding:.3rem .6rem;border-radius:6px;
+          border:1px solid rgba(0,0,0,.08);font-size:.72rem;font-weight:600}
+    .chip .dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+    /* PROMPT BLOCKS */
+    .prompt-label{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+                  color:#888;margin:.75rem 0 .3rem;display:block}
+    .prompt-box{background:#1C2C38;border-radius:8px;padding:1rem 1.25rem;
+                font-family:'JetBrains Mono',monospace;font-size:.75rem;
+                color:#C8E6D0;line-height:1.7;white-space:pre-wrap;
+                position:relative;overflow-x:auto}
+    .prompt-box.canva{background:#0B3D2E;color:#B8F0D0}
+    .prompt-box.image{background:#1C1040;color:#D4BEFF}
+    .prompt-box.copy-text{background:#2C1A10;color:#FFD4B0}
+
+    /* COPY HINT */
+    .copy-hint{font-size:.62rem;color:#888;margin-top:.3rem;font-style:italic}
+
+    /* TYPOGRAPHY SPEC */
+    .typo-row{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 1rem}
+    .typo-pill{background:#F0ECE4;border-radius:6px;padding:.4rem .75rem;font-size:.78rem}
+    .typo-pill strong{color:var(--azul);font-size:.7rem;display:block;margin-bottom:.1rem}
+
+    /* LAYOUT SKETCH */
+    .layout-sketch{background:#F0ECE4;border-radius:8px;padding:1rem;
+                   font-family:'JetBrains Mono',monospace;font-size:.7rem;
+                   color:#555;white-space:pre;overflow-x:auto;margin:.5rem 0 1rem;line-height:1.6}
+
+    /* RULES */
+    .rule-box{background:#FFF8EC;border-left:3px solid var(--dourado);border-radius:0 8px 8px 0;
+              padding:.75rem 1rem;font-size:.82rem;margin:.75rem 0}
+    .rule-box strong{color:var(--azul)}
+
+    h4{font-size:.85rem;font-weight:800;color:var(--azul);margin:.75rem 0 .35rem;
+       text-transform:uppercase;letter-spacing:.08em}
+
+    @media(max-width:640px){
+      .app-body .grid-2,.app-body .grid-3{grid-template-columns:1fr}
+      nav .counter{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Salamares — Prompts Canva</span>
+  <span class="counter">26 aplicações</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="section-divider" style="color:var(--creme);opacity:.65;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:0 0 .5rem">Botequim Salamares</p>
+  <h1>Prompts &amp; Briefings para Canva</h1>
+  <p>Para cada aplicação: dimensões exatas, cores HEX, tipografia, copy, layout e prompt de IA. Siga na sequência ou vá direto para a aplicação que precisa.</p>
+  <span class="badge">26 aplicações mapeadas</span>
+</div>
+
+<!-- ================================================
+     PASSAPORTE DA MARCA
+================================================ -->
+<div style="padding:2rem 1.5rem 0">
+<div class="passport">
+  <h2>🪪 Passaporte da Marca — Cole no ChatGPT antes de qualquer pedido</h2>
+  <div class="p-copy">BOTEQUIM SALAMARES — PASSAPORTE DA MARCA
+════════════════════════════════════════════════
+
+IDENTIDADE
+Nome oficial: Botequim Salamares
+Tagline: "Vem sujar as mãos."
+Handle: @sala_mares
+Localização: Praia da Costa, Vila Velha - ES
+Posicionamento: O único botequim da Grande Vitória onde o caranguejo é o protagonista absoluto.
+Headline de comunicação: "O Botequim do Caranguejo Capixaba"
+
+ARQUÉTIPO
+Principal: Jester — celebração, irreverência, alegria genuína, debochado com afeto
+Secundário: Everyman — autenticidade, pertencimento, família, sem frescura
+Tom: casual, brincalhão, primeira pessoa, direto, capixaba
+Jamais usar: "experiência gastronômica", "curadoria", "harmonização", "prezado cliente"
+
+PALETA DE CORES (usar exatamente estes HEX)
+─────────────────────────────────────────
+Azul Oceano     #1E5C7A → fundo principal, backgrounds, logo
+Vermelho Caran. #D4451A → CTAs, destaques, energia, seções de impacto
+Dourado Timão   #C4922E → ornamentos, bordas, detalhes — NUNCA como texto
+Creme Maré      #F0E4C0 → fundo em impressos, cardápio, papel de mesa
+Areia da Praia  #E8D5A3 → alternativo ao creme, gradientes
+Branco Espuma   #FAFAF5 → texto sobre azul e vermelho
+Preto Mar       #1C1C1C → texto sobre creme e fundos claros
+
+REGRAS DE CONTRASTE (WCAG)
+Seguro para texto: Branco/Creme SOBRE Azul | Preto SOBRE Creme
+Só texto grande: Branco SOBRE Vermelho (≥18pt)
+NUNCA como texto: Dourado sobre qualquer fundo | Vermelho sobre Azul
+
+TIPOGRAFIA
+Títulos/display: Playfair Display Bold 700 ou Black 900
+Corpo/interface: Nunito Regular 400 ou SemiBold 600 ou Bold 700
+Voz do Zé Maré: Pacifico Regular 400 (máx 10% das peças)
+→ Todas disponíveis no Google Fonts (adicionar no Brand Kit do Canva)
+
+MASCOTE — ZÉ MARÉ
+Espécie: Caranguejo cartoon 3D
+Cores: Corpo #D4451A, Barriga #E8C870, Juntas/detalhes #C4922E
+Estilo: 3D render cartoon, estilo Pixar/Illumination
+Personalidade: debochado com afeto, orgulhoso, acolhedor
+Fundo padrão: Azul Oceano #1E5C7A
+Referência visual disponível em: referências/assets/sugestao de mascoste.jpg
+
+LOGO
+Arquivo: referências/assets/logomarca.jpg (fundo azul nativo)
+Elementos: Timão de navio + monograma S em peixes e anzol + BOTEQUIM (acima) + SALA MARES (abaixo)
+Usar sempre com espaço mínimo de proteção ao redor
+
+════════════════════════════════════════════════</div>
+  <p class="p-note">▲ Cole este bloco no início de cada conversa com o ChatGPT para garantir consistência. No Canva, configure o Brand Kit com as cores e fontes antes de criar qualquer peça.</p>
+</div>
+</div>
+
+<!-- ================================================
+     CONFIGURAÇÃO DO BRAND KIT
+================================================ -->
+<div class="wrap" style="padding-top:1rem">
+<div class="section-divider">
+  <p class="cat-label">Passo zero</p>
+  <h2>Configuração do Brand Kit no Canva</h2>
+</div>
+
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">0</div>
+    <h3>Brand Kit — configurar antes de tudo</h3>
+    <span class="prio prio-alta">Obrigatório primeiro</span>
+  </div>
+  <div class="app-body">
+    <p style="font-size:.9rem;margin-bottom:1rem">No Canva Pro: <strong>Menu lateral esquerdo → Brand Hub → Brand Kit → + Novo Brand Kit → "Botequim Salamares"</strong></p>
+
+    <h4>1. Cores — adicionar em "Brand Colors"</h4>
+    <div class="color-row">
+      <div class="chip"><span class="dot" style="background:#1E5C7A"></span>#1E5C7A — Azul Oceano</div>
+      <div class="chip"><span class="dot" style="background:#D4451A"></span>#D4451A — Vermelho Caranguejo</div>
+      <div class="chip"><span class="dot" style="background:#C4922E"></span>#C4922E — Dourado Timão</div>
+      <div class="chip"><span class="dot" style="background:#F0E4C0;border:1px solid #ccc"></span>#F0E4C0 — Creme Maré</div>
+      <div class="chip"><span class="dot" style="background:#E8D5A3;border:1px solid #ccc"></span>#E8D5A3 — Areia da Praia</div>
+      <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>#FAFAF5 — Branco Espuma</div>
+      <div class="chip"><span class="dot" style="background:#1C1C1C"></span>#1C1C1C — Preto Mar</div>
+      <div class="chip"><span class="dot" style="background:#163F55"></span>#163F55 — Azul Escuro</div>
+    </div>
+
+    <h4>2. Fontes — adicionar em "Brand Fonts"</h4>
+    <div class="typo-row">
+      <div class="typo-pill"><strong>Título Principal</strong>Playfair Display Bold 700</div>
+      <div class="typo-pill"><strong>Título Display</strong>Playfair Display Black 900</div>
+      <div class="typo-pill"><strong>Corpo de Texto</strong>Nunito Regular 400</div>
+      <div class="typo-pill"><strong>Destaque / Label</strong>Nunito SemiBold 600</div>
+      <div class="typo-pill"><strong>Voz Zé Maré</strong>Pacifico Regular 400</div>
+    </div>
+    <div class="rule-box">Para adicionar no Canva: Brand Kit → Fonts → "Connect a font" → buscar no Google Fonts pelo nome exato. Todas as três estão disponíveis gratuitamente.</div>
+
+    <h4>3. Logo — fazer upload em "Brand Logos"</h4>
+    <p style="font-size:.85rem">Fazer upload de <code>referências/assets/logomarca.jpg</code>. Quando o designer do Hasler entregar a versão vetorial e o PNG com fundo transparente real, substituir aqui.</p>
+  </div>
+</div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 1: DIGITAL
+================================================ -->
+<div class="wrap">
+<div class="section-divider">
+  <p class="cat-label">Categoria 1</p>
+  <h2>Digital — Instagram &amp; WhatsApp</h2>
+</div>
+
+<!-- APP 1: FEED BASE -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">1</div>
+    <h3>Feed Instagram — Template Base (Produto)</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Post para Instagram · 1080×1080px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#1E5C7A — Azul Oceano</p></div>
+      <div class="spec-item"><label>Uso</label><p>Fotos de prato, anúncios do dia, conteúdo diário</p></div>
+    </div>
+
+    <h4>Layout</h4>
+    <div class="layout-sketch">┌────────────────────────────────┐
+│  [LOGO pequeno — canto sup. dir.]  │ ← 80px, Branco Espuma
+│                                    │
+│  ┌──────────────────────────────┐  │
+│  │   FOTO DO CARANGUEJO / PRATO │  │ ← Ocupa 65% da altura
+│  │   (foto real centralizada)   │  │
+│  └──────────────────────────────┘  │
+│                                    │
+│  [TAG CATEGORIA]                   │ ← Nunito 700, #F0E4C0, 60% opacidade, 11px
+│  [TÍTULO DO POST]                  │ ← Playfair Display 700, #FAFAF5, 22px
+│                                    │
+│  @sala_mares        ──────── 🦀   │ ← Nunito 400, 11px, 60% opacidade
+└────────────────────────────────┘</div>
+
+    <h4>Cores usadas</h4>
+    <div class="color-row">
+      <div class="chip"><span class="dot" style="background:#1E5C7A"></span>Fundo — #1E5C7A</div>
+      <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>Título — #FAFAF5</div>
+      <div class="chip"><span class="dot" style="background:#F0E4C0;border:1px solid #ccc"></span>Label — #F0E4C0 (70% opacidade)</div>
+      <div class="chip"><span class="dot" style="background:#C4922E"></span>Linha decorativa — #C4922E</div>
+    </div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design (cole em "Gerar com IA")</span>
+    <div class="prompt-box canva">Post para Instagram do restaurante Botequim Salamares. Fundo azul escuro (#1E5C7A). Área de foto grande na parte superior ocupando 65% da tela. Na parte inferior: espaço para título em fonte serif branca, tag de categoria em creme acima do título. Logo pequeno no canto superior direito. Ícone de caranguejo discreto no canto inferior. Estilo náutico e artesanal, sem elementos modernos ou minimalistas excessivos.</div>
+
+    <h4>Copy (textos que variam por post)</h4>
+    <div class="prompt-box copy-text">TAG: "Hoje no Salamares" / "Prato do Dia" / "Em Destaque"
+TÍTULO: "O caranguejo hoje tá assim: perfeito. Como sempre."
+        "Batidinha gelando. Caranguejo no forno. Tá pronto."
+        "Receita de família. Não peço pra dizer de onde veio."
+RODAPÉ: @sala_mares · Praia da Costa, Vila Velha</div>
+    <p class="copy-hint">Todos os textos curtos, sem pontuação formal, primeira pessoa do mascote ou da marca.</p>
+  </div>
+</div>
+
+<!-- APP 2: FEED ENERGIA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">2</div>
+    <h3>Feed Instagram — Template Energia (Promoção)</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Post para Instagram · 1080×1080px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#D4451A — Vermelho Caranguejo</p></div>
+      <div class="spec-item"><label>Uso</label><p>Promoções, datas especiais, urgência, "só hoje"</p></div>
+    </div>
+
+    <h4>Layout</h4>
+    <div class="layout-sketch">┌────────────────────────────────┐
+│                                    │
+│  [LABEL MENOR]                     │ ← Nunito 800, #FAFAF5, 70% opacidade, 12px
+│                                    │
+│  [TÍTULO GRANDE]                   │ ← Playfair Display 900, #FAFAF5, 48–60px
+│  [TÍTULO GRANDE]                   │   máx 2 linhas
+│                                    │
+│  [subtítulo/descrição]             │ ← Nunito 400, #FAFAF5, 80% opacidade, 16px
+│                                    │
+│  ╔══════════════════╗              │
+│  ║  CTA ou PREÇO    ║              │ ← Box branco, Playfair 900, #D4451A, 24px
+│  ╚══════════════════╝              │
+│                                    │
+│  @sala_mares                       │ ← 11px, 60% opacidade
+└────────────────────────────────┘</div>
+
+    <h4>Cores usadas</h4>
+    <div class="color-row">
+      <div class="chip"><span class="dot" style="background:#D4451A"></span>Fundo — #D4451A</div>
+      <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>Todos os textos — #FAFAF5</div>
+      <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>Box CTA fundo — #FAFAF5</div>
+      <div class="chip"><span class="dot" style="background:#D4451A"></span>Texto dentro do box — #D4451A</div>
+    </div>
+    <div class="rule-box"><strong>Regra de contraste:</strong> Branco sobre vermelho = 4.04:1 — aprovado para texto grande (≥20px). Usar fontes grandes e bold. Nunca texto miúdo branco sobre fundo vermelho.</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design</span>
+    <div class="prompt-box canva">Post de promoção para Instagram de restaurante. Fundo vermelho vivo (#D4451A). Título grande em branco no centro, fonte serif. Subtítulo menor abaixo. Box retangular branco com texto em vermelho para o CTA ou preço. Sem fotos, só tipografia e cor. Estilo impactante e direto.</div>
+
+    <h4>Copy modelo</h4>
+    <div class="prompt-box copy-text">LABEL: "Apenas hoje" / "Fim de semana" / "Novidade"
+TÍTULO: "Hoje tem Caranguejo"  /  "Caranguejo + Batidinha"
+SUBTÍTULO: "Receita de família. Praia da Costa."
+BOX CTA: "Reserve sua mesa"  /  "R$ 89 o combo"
+RODAPÉ: @sala_mares · Vila Velha - ES</div>
+  </div>
+</div>
+
+<!-- APP 3: FEED ZÉ MARÉ -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">3</div>
+    <h3>Feed Instagram — Template Zé Maré (Engajamento)</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Post para Instagram · 1080×1080px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#163F55 — Azul Escuro</p></div>
+      <div class="spec-item"><label>Uso</label><p>Humor, frases do Zé Maré, engajamento, fidelização</p></div>
+    </div>
+
+    <h4>Layout</h4>
+    <div class="layout-sketch">┌────────────────────────────────┐
+│  [LOGO — canto sup. esq.]          │ ← 60px
+│                                    │
+│       [ZÉ MARÉ — imagem]           │ ← PNG do mascote centralizado
+│       (gerar no ChatGPT)           │   ocupa 55–60% da tela
+│                                    │
+│  ┌──────────────────────────────┐  │
+│  │  "frase do Zé Maré aqui"     │  │ ← Pacifico Regular, #F0E4C0, 26–32px
+│  └──────────────────────────────┘  │   itálico ou aspas visuais
+│  @sala_mares                       │ ← Nunito 700, #C4922E, 11px
+└────────────────────────────────┘</div>
+
+    <span class="prompt-label">🤖 Prompt ChatGPT — Gerar imagem do Zé Maré (enviar com a foto de referência)</span>
+    <div class="prompt-box image">Using this image as the exact style reference, generate the same red cartoon 3D crab character (Zé Maré) in the following pose: [DESCREVER A EXPRESSÃO]. Keep exactly the same color scheme: body #D4451A red-orange, cream-yellow belly #E8C870, golden joints #C4922E. Background: solid dark blue #163F55. Style: Pixar/Illumination 3D cartoon render. High quality, PNG format, square composition, character centered.</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design (para montar o post depois de ter a imagem)</span>
+    <div class="prompt-box canva">Post Instagram com mascote de restaurante. Fundo azul marinho escuro (#163F55). Personagem caranguejo cartoon 3D centralizado ocupando 60% do espaço. Na parte inferior, frase curta em fonte cursiva informal (estilo Pacifico) em creme claro. Handle da marca no canto inferior esquerdo em dourado sutil. Sem outros elementos.</div>
+
+    <h4>Copy — frases por expressão</h4>
+    <div class="prompt-box copy-text">SORRISO ABERTO:  "Chegou! Que bom."
+PISCADELA:       "Só hoje. Não conta pra ninguém."
+GARRAS ABERTAS:  "A mesa tá esperando."
+APONTANDO:       "Você vai pedir o caranguejo. Confie em mim."
+COM BABADOR:     "Pronto. Pode trazer."
+BRAÇOS CRUZADOS: "Você ainda não conhece o Salamares? Que absurdo."
+COM PRANCHA:     [texto variável: data comemorativa, anúncio, promoção]</div>
+  </div>
+</div>
+
+<!-- APP 4: STORY BOAS-VINDAS -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">4</div>
+    <h3>Instagram Story — Boas-vindas / Abertura</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Story do Instagram · 1080×1920px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#1E5C7A — Azul Oceano</p></div>
+      <div class="spec-item"><label>Uso</label><p>Abertura do dia, "estamos abertos", avisos gerais</p></div>
+    </div>
+
+    <h4>Layout (9:16 vertical)</h4>
+    <div class="layout-sketch">┌────────────────────┐
+│                    │ ← Zona segura top (250px)
+│   [LOGO GRANDE]    │ ← Logo ~250px, centralizado, 30% altura
+│                    │
+│  [HEADLINE]        │ ← Playfair 700, #FAFAF5, 44px, centralizado
+│  [HEADLINE]        │   2 linhas máx
+│                    │
+│ "Vem sujar as mãos."│ ← Pacifico, #F0E4C0, 32px
+│                    │
+│  ┌──────────────┐  │
+│  │ Reserve mesa │  │ ← Box vermelho, Nunito 800, branco, 18px
+│  └──────────────┘  │
+│                    │ ← Zona segura bottom (250px)
+└────────────────────┘</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design</span>
+    <div class="prompt-box canva">Story Instagram vertical para restaurante. Fundo azul marinho (#1E5C7A). Logo circular no topo centralizado. Título de boas-vindas em serif branca no meio. Tagline em fonte cursiva informal abaixo. Botão vermelho com CTA na parte inferior. Atmosfera náutica e acolhedora.</div>
+
+    <h4>Copy</h4>
+    <div class="prompt-box copy-text">HEADLINE: "O botequim do caranguejo capixaba"
+TAGLINE:  "Vem sujar as mãos."
+CTA:      "Reserve sua mesa ↓"  ou  "Chega, tem lugar"
+RODAPÉ:   @sala_mares · Ter–Qui 17h30 · Sex–Dom 11h</div>
+  </div>
+</div>
+
+<!-- APP 5: STORY PROMOÇÃO -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">5</div>
+    <h3>Instagram Story — Promoção / Oferta</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Story do Instagram · 1080×1920px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#D4451A — Vermelho Caranguejo</p></div>
+      <div class="spec-item"><label>Uso</label><p>Promoções, combos, "só hoje", happy hour</p></div>
+    </div>
+
+    <div class="layout-sketch">┌────────────────────┐
+│                    │
+│  [LABEL URGÊNCIA]  │ ← Nunito 800, #FAFAF5, 70% opacidade, 14px
+│                    │
+│  [TÍTULO GRANDE]   │ ← Playfair 900, #FAFAF5, 58–70px
+│  [TÍTULO GRANDE]   │
+│                    │
+│  [PREÇO / INFO]    │ ← Playfair 900, #FAFAF5, 80–100px (destaque)
+│                    │
+│ "frase do Zé Maré" │ ← Pacifico, #FAFAF5, 85% opacidade, 28px
+│                    │
+│  @sala_mares       │ ← Nunito, 11px, 60% opacidade
+└────────────────────┘</div>
+
+    <h4>Copy</h4>
+    <div class="prompt-box copy-text">LABEL:    "Apenas Hoje"  /  "Fim de Semana"  /  "Novidade"
+TÍTULO:   "Caranguejo + Batidinha"  /  "Hoje tem Caranguejo"
+PREÇO:    "R$ 89"  /  "A partir de R$ 75"
+PACIFICO: "Aproveita. Não repito duas vezes."
+          "Só hoje. Não conta pra ninguém."
+RODAPÉ:   @sala_mares</div>
+  </div>
+</div>
+
+<!-- APP 6: HIGHLIGHTS -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">6</div>
+    <h3>Instagram Highlights — 6 capas</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Post para Instagram · 1080×1080px (recortado em círculo pelo Instagram)</p></div>
+      <div class="spec-item"><label>Fundo</label><p>#1E5C7A — Azul Oceano</p></div>
+      <div class="spec-item"><label>Atenção</label><p>Manter elementos importantes na zona central (80% da imagem) — as bordas são cortadas</p></div>
+    </div>
+
+    <h4>Layout de cada capa</h4>
+    <div class="layout-sketch">┌──────────────────────────┐
+│                          │
+│                          │
+│      [ÍCONE EMOJI]       │ ← Centralizado, 180–220px
+│    ou ícone simples      │
+│                          │
+│    [LABEL DO TEMA]       │ ← Nunito 800, #F0E4C0, 20px
+│                          │
+└──────────────────────────┘
+Fundo: #1E5C7A em todas — consistência visual no perfil</div>
+
+    <h4>As 6 capas</h4>
+    <div class="prompt-box copy-text">1. CARANGUEJO    → Emoji 🦀 + texto "Caranguejo"     → Fundo #1E5C7A
+2. BATIDINHAS    → Emoji 🍹 + texto "Batidinhas"    → Fundo #1E5C7A
+3. ALMOÇO        → Emoji 🍽️ + texto "Almoço"        → Fundo #1E5C7A
+4. AVALIAÇÕES    → Emoji ⭐ + texto "Avaliações"    → Fundo #1E5C7A
+5. LOCALIZAÇÃO   → Emoji 📍 + texto "Como Chegar"   → Fundo #1E5C7A
+6. MOMENTOS      → Emoji 📸 + texto "Momentos"      → Fundo #1E5C7A</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design (criar todos no mesmo estilo)</span>
+    <div class="prompt-box canva">Capa de destaque para Instagram. Fundo azul marinho (#1E5C7A). Ícone grande e simples centralizado em branco ou creme. Nome da categoria em fonte sans-serif bold abaixo do ícone, cor creme. Composição simétrica e limpa. Sem bordas decorativas. [Substituir o tema em cada versão]</div>
+  </div>
+</div>
+
+<!-- APP 7: STICKERS WHATSAPP -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">7</div>
+    <h3>WhatsApp Stickers — Pacote Zé Maré (8 peças)</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 512×512px</p></div>
+      <div class="spec-item"><label>Fundo</label><p>Transparente (exportar como PNG)</p></div>
+      <div class="spec-item"><label>Exportar</label><p>PNG com transparência · cada um separado</p></div>
+    </div>
+
+    <h4>Layout de cada sticker</h4>
+    <div class="layout-sketch">┌────────────────────────┐
+│                        │ ← Fundo transparente
+│   [ZÉ MARÉ — pose]     │ ← Imagem gerada no ChatGPT
+│   (fundo transparente) │   ocupa 70% da área
+│                        │
+│ "frase curta"          │ ← Pacifico, #FAFAF5 OU #1E5C7A
+│                        │   dependendo do fundo do sticker
+└────────────────────────┘</div>
+
+    <span class="prompt-label">🤖 Prompt ChatGPT — Gerar cada sticker (enviar com referência)</span>
+    <div class="prompt-box image">Using this image as exact style reference, generate the same red cartoon 3D crab (Zé Maré) in the following expression: [EXPRESSÃO]. Transparent background. Keep exact colors: body #D4451A, belly #E8C870, claw joints #C4922E. Style: Pixar 3D cartoon, expressive face, large eyes open. Square format 512x512px. Character must fill 70% of frame. No text in the image.</div>
+
+    <h4>Os 8 stickers</h4>
+    <div class="prompt-box copy-text">STICKER 1 → Expressão: Sorriso aberto, garras levantadas   | Texto: "Chegou!"
+STICKER 2 → Expressão: Com babador branco amarrado       | Texto: "Tá pronto?"
+STICKER 3 → Expressão: Garra fazendo joinha              | Texto: "Mandou bem! 👌"
+STICKER 4 → Expressão: Dormindo / olhos fechados         | Texto: "Volta amanhã."
+STICKER 5 → Expressão: Garra apontando para cima         | Texto: "Pede o caranguejo!"
+STICKER 6 → Expressão: Com coração nas garras            | Texto: "Obrigado! ❤"
+STICKER 7 → Expressão: Braços cruzados, sobrancelha up   | Texto: "Não deixa sobrar."
+STICKER 8 → Expressão: Segurando placa branca em branco  | Texto: [personalizável]</div>
+
+    <div class="rule-box">No Canva: crie um documento 512×512px, cole a imagem do ChatGPT, adicione o texto em Pacifico Regular, exporte como PNG. Repita para os 8 stickers. Depois use o app <strong>Sticker Maker</strong> (Android/iOS, gratuito) para empacotar e publicar no WhatsApp.</div>
+  </div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 2: MESA E EXPERIÊNCIA
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Categoria 2</p>
+  <h2>Mesa &amp; Experiência</h2>
+</div>
+
+<!-- APP 8: BABADOR -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">8</div>
+    <h3>Babador Personalizado — Frente + Verso</h3>
+    <span class="prio prio-alta">Prioridade Alta ⭐ Touchpoint fotográfico</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 2677×3307px (45×55cm a 150dpi)</p></div>
+      <div class="spec-item"><label>Fundo frente</label><p>#1E5C7A — Azul Oceano</p></div>
+      <div class="spec-item"><label>Fundo verso</label><p>#163F55 — Azul Escuro</p></div>
+      <div class="spec-item"><label>Exportar</label><p>PDF para impressão (300dpi) · 2 arquivos separados</p></div>
+      <div class="spec-item"><label>Gráfica</label><p>Serigrafia 2 cores · Algodão 100% · 45×55cm adulto</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h4>Frente</h4>
+        <div class="layout-sketch">┌──────────────────────┐
+│ [espaço para cordão] │ ← Sem arte aqui (dobra)
+├──────────────────────┤
+│                      │
+│   [ZÉ MARÉ grande]   │ ← PNG mascote, ~40% da área
+│   garra erguida      │
+│                      │
+│ "Vem sujar as mãos." │ ← Pacifico, #FAFAF5, 52pt
+│                      │   LEGÍVEL EM FOTO DE ROSTO
+│                      │
+└──────────────────────┘</div>
+        <div class="color-row">
+          <div class="chip"><span class="dot" style="background:#1E5C7A"></span>Fundo — #1E5C7A</div>
+          <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>Texto — #FAFAF5</div>
+        </div>
+      </div>
+      <div>
+        <h4>Verso</h4>
+        <div class="layout-sketch">┌──────────────────────┐
+│                      │
+│   [LOGO SALAMARES]   │ ← Logo centralizado, 200px
+│                      │
+│  "Botequim Salamares"│ ← Playfair 700, #F0E4C0, 22pt
+│                      │
+│   @sala_mares        │ ← Pacifico, #C4922E, 18pt
+│                      │
+│ Praia da Costa       │ ← Nunito 400, #F0E4C0, 60% opacidade, 14pt
+│ Vila Velha - ES      │
+└──────────────────────┘</div>
+        <div class="color-row">
+          <div class="chip"><span class="dot" style="background:#163F55"></span>Fundo — #163F55</div>
+          <div class="chip"><span class="dot" style="background:#F0E4C0;border:1px solid #ccc"></span>Nome — #F0E4C0</div>
+          <div class="chip"><span class="dot" style="background:#C4922E"></span>Handle — #C4922E</div>
+        </div>
+      </div>
+    </div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design — Frente</span>
+    <div class="prompt-box canva">Arte para babador de restaurante para impressão em serigrafia. Fundo azul marinho (#1E5C7A). Área central com espaço para imagem de mascote. Abaixo: frase grande em fonte cursiva informal branca "Vem sujar as mãos." em tamanho legível em foto de rosto. Composição vertical, margens generosas. Apenas 2 cores: azul e branco.</div>
+  </div>
+</div>
+
+<!-- APP 9: PAPEL DE MESA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">9</div>
+    <h3>Papel de Mesa Kraft — Layout completo</h3>
+    <span class="prio prio-alta">Prioridade Alta ⭐ Touchpoint mais estratégico</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 5669×3780px (150×100cm a 96dpi) ou peça sua gráfica o template</p></div>
+      <div class="spec-item"><label>Impressão</label><p>1 cor: Azul Oceano sobre kraft · 2 cores: + Vermelho</p></div>
+      <div class="spec-item"><label>Suporte</label><p>Kraft 60–80g — a arte vai sobre o papel marrom natural</p></div>
+      <div class="spec-item"><label>Atenção</label><p>Toda a arte em Azul #1E5C7A. O fundo não precisa ser preenchido (é o próprio papel kraft)</p></div>
+    </div>
+
+    <h4>Zonas do layout</h4>
+    <div class="layout-sketch">┌────────────────────────────────────────────────────────────┐
+│  [WATERMARK TIMÃO — centro, 12% opacidade, #1E5C7A]        │
+│                                                            │
+│  ┌────────────────────┐    [ZÉ MARÉ]     [FRASES CURTAS]  │
+│  │ GUIA: COMO COMER   │    apontando     "Caranguejo não   │
+│  │ CARANGUEJO         │    para o guia   se come com       │
+│  │ 1. Torça a pata    │                  pressa."          │
+│  │ 2. Quebre a pinça  │                  — Zé Maré         │
+│  │ 3. Chupe o tutano  │                                    │
+│  │ 4. Repita          │                  "O babador não    │
+│  └────────────────────┘                  é opcional."      │
+│                                                            │
+│  [ZÉ MARÉ                [FRASES]        [QR CODE]         │
+│   garras abertas]                        cardápio          │
+│                          "A mesa é       @sala_mares       │
+│                          sua pelo tempo                    │
+│                          que precisar."                    │
+└────────────────────────────────────────────────────────────┘</div>
+
+    <h4>Guia do caranguejo — texto completo</h4>
+    <div class="prompt-box copy-text">TÍTULO: Como Comer Caranguejo
+
+Passo 1: Torça a pata até soltar da articulação
+Passo 2: Quebre a pinça — use o martelo ou a própria garra
+Passo 3: Chupe o tutano da pata (é a melhor parte, pode confiar)
+Passo 4: Repita. Sem pressa.
+Passo 5: Troque de babador se necessário
+
+(Não existe jeito errado de comer caranguejo.
+ Existe jeito com babador e sem babador.)
+                                            — Zé Maré</div>
+
+    <h4>Frases espalhadas pelo papel</h4>
+    <div class="prompt-box copy-text">"Caranguejo não se come com pressa. Você foi avisado."
+"O babador não é opcional. Eu insisto."
+"Você está no único botequim da Praia da Costa onde o caranguejo é o chefe."
+"Receita de família. Guardada a sete chaves. Você só prova aqui."
+"A mesa é sua pelo tempo que precisar."
+"@sala_mares — segue lá. Eu apareço muito por lá."</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design</span>
+    <div class="prompt-box canva">Layout para papel de mesa de restaurante. Estilo kraft artesanal. Arte toda em azul marinho (#1E5C7A) para impressão em 1 cor. Zona esquerda: guia ilustrado de como comer caranguejo com passos numerados. Centro: espaço para mascote. Lado direito: frases curtas e irreverentes em fonte cursiva informal. Rodapé: QR code e @sala_mares. Watermark de timão de navio no centro em baixíssima opacidade.</div>
+  </div>
+</div>
+
+<!-- APP 10: GUARDANAPO -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">10</div>
+    <h3>Guardanapo — Versão papel e versão tecido</h3>
+    <span class="prio prio-baixa">Prioridade Baixa</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Versão papel</label><p>10×10cm · impressão 1 cor · Azul Oceano</p></div>
+      <div class="spec-item"><label>Versão tecido</label><p>Monograma "S" bordado · Dourado Timão</p></div>
+    </div>
+    <div class="prompt-box copy-text">VERSÃO PAPEL: Timão centralizado + "SALAMARES" embaixo
+              Arte: #1E5C7A sobre papel branco ou kraft
+              Fonte: Nunito 800, letras espaçadas
+
+VERSÃO TECIDO (almoço executivo):
+              Monograma "S" cursivo + âncora decorativa
+              Bordado em #C4922E (Dourado Timão) sobre guardanapo branco ou creme</div>
+  </div>
+</div>
+
+<!-- APP 11: COPO DE BATIDINHA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">11</div>
+    <h3>Copo de Batidinha / Caneca</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Caneca · usar template "Caneca" disponível no Canva</p></div>
+      <div class="spec-item"><label>Material real</label><p>Long drink 350ml ou caneca alumínio estilo boteco</p></div>
+    </div>
+    <div class="layout-sketch">┌──────────────────────────┐
+│                          │ ← Vista cilíndrica
+│      [TIMÃO]             │ ← Centralizado, grande, #1E5C7A
+│                          │
+│   Botequim Salamares     │ ← Playfair Display 700, #1E5C7A, 16pt
+│                          │
+│  "Vem sujar as mãos."    │ ← Pacifico, #D4451A, 12pt
+└──────────────────────────┘</div>
+    <span class="prompt-label">📋 Prompt Canva Magic Design</span>
+    <div class="prompt-box canva">Arte para caneca de bar. Estilo vintage náutico. Fundo branco. Timão de navio centralizado em azul marinho. Nome "Botequim Salamares" em fonte serif abaixo. Tagline em fonte cursiva em vermelho. Sem outros elementos decorativos excessivos.</div>
+    <h4>Variação — Zé Maré segurando o próprio copo</h4>
+    <div class="prompt-box image">Generate the red cartoon 3D crab character (Zé Maré) holding a small mug/glass with both claws, smiling. Same style reference as provided. Transparent background. Body #D4451A, belly #E8C870. The mug should be dark blue with a golden ship wheel symbol. Square format, character centered.</div>
+  </div>
+</div>
+
+<!-- APP 12: SACO PARA CASCAS -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">12</div>
+    <h3>Saco para Cascas</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 25×30cm · impressão 1 cor</p></div>
+      <div class="spec-item"><label>Suporte</label><p>Papel kraft — arte em Azul Oceano</p></div>
+    </div>
+    <div class="prompt-box copy-text">ARTE PRINCIPAL: Zé Maré de braços cruzados (expressão satisfeita)
+FRASE: "Você comeu bem."        ← Pacifico, grande, centralizado
+RODAPÉ: @sala_mares             ← Nunito 700, pequeno</div>
+    <span class="prompt-label">🤖 Prompt ChatGPT — Gerar imagem</span>
+    <div class="prompt-box image">Using provided reference, generate Zé Maré (red cartoon 3D crab) with arms crossed over chest, satisfied/proud expression, slight smirk, one eyebrow raised. Transparent background. Body #D4451A, belly #E8C870. Style: Pixar 3D cartoon. Portrait orientation, character fills 80% of frame.</div>
+  </div>
+</div>
+
+<!-- APP 13: CARTÃO DE VISITA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">13</div>
+    <h3>Cartão de Visita — Frente + Verso</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Cartão de Visita · 88×55mm (Canva tem esse preset)</p></div>
+      <div class="spec-item"><label>Papel</label><p>300g · laminação fosca · verniz localizado no timão</p></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h4>Frente</h4>
+        <div class="layout-sketch">┌─────────────────────────────┐
+│[Logo grande centralizado]   │ ← #1E5C7A fundo
+│                             │
+│ BOTEQUIM                    │ ← Nunito 400, #F0E4C0, 9pt, espaçado
+│ SALAMARES                   │ ← Nunito 800, #FAFAF5, 12pt, espaçado
+│                             │
+│               [🦀 pequeno] │ ← canto inf. direito, decorativo
+└─────────────────────────────┘</div>
+        <div class="color-row">
+          <div class="chip"><span class="dot" style="background:#1E5C7A"></span>Fundo — #1E5C7A</div>
+          <div class="chip"><span class="dot" style="background:#FAFAF5;border:1px solid #ccc"></span>Nome — #FAFAF5</div>
+        </div>
+      </div>
+      <div>
+        <h4>Verso</h4>
+        <div class="layout-sketch">┌─────────────────────────────┐
+│                             │ ← #163F55 fundo
+│  "Vem sujar as mãos."       │ ← Pacifico, #F0E4C0, 14pt
+│                             │
+│ Praia da Costa              │ ← Nunito 400, #F0E4C0, 70%, 9pt
+│ Vila Velha - ES             │
+│                             │
+│ @sala_mares                 │ ← Nunito 800, #C4922E, 10pt
+│ Ter–Qui 17h30|Sex–Dom 11h   │ ← Nunito 400, #F0E4C0, 60%, 8pt
+└─────────────────────────────┘</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP 14: CARTÃO FIDELIDADE -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">14</div>
+    <h3>Cartão Fidelidade — 10 caranguejadas</h3>
+    <span class="prio prio-baixa">Prioridade Baixa (implementar programa primeiro)</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Cartão de Visita · 88×55mm</p></div>
+      <div class="spec-item"><label>Papel</label><p>300g · plastificado · carimbo em forma de garra</p></div>
+    </div>
+    <div class="layout-sketch">FRENTE:
+┌─────────────────────────────────────────┐
+│ [Logo]             Cartão Fidelidade    │ ← Playfair 700, #F0E4C0
+│                                         │ ← Fundo #1E5C7A
+│ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○                   │ ← 10 círculos para carimbo
+│ (cada um: 18×18px, borda #C4922E 50%)  │
+│                                         │
+│ 10 caranguejadas = 1 batidinha grátis  │ ← Nunito 400, #F0E4C0, 60%, 8pt
+└─────────────────────────────────────────┘</div>
+    <div class="prompt-box copy-text">REGRA: "10 caranguejadas = 1 batidinha grátis"
+CARIMBO: Forma de garra de caranguejo (pedir para gráfica fazer carimbinho personalizado)</div>
+  </div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 3: CARDÁPIOS E IMPRESSOS
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Categoria 3</p>
+  <h2>Cardápios &amp; Impressos</h2>
+</div>
+
+<!-- APP 15: CARDÁPIO COMPLETO -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">15</div>
+    <h3>Cardápio Completo — A5</h3>
+    <span class="prio prio-alta">Prioridade Alta</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>A5 · 148×210mm (Canva: buscar "A5" em tamanhos)</p></div>
+      <div class="spec-item"><label>Capa</label><p>300g · laminação fosca</p></div>
+      <div class="spec-item"><label>Interno</label><p>150g · sem plastificação (mãos de caranguejo)</p></div>
+      <div class="spec-item"><label>Buscar template</label><p>"restaurant menu" ou "cardápio restaurante" no Canva</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h4>Capa</h4>
+        <div class="layout-sketch">┌──────────────────────┐
+│      [WATERMARK S]   │ ← #FAFAF5, 7% opacidade
+│   [LOGO GRANDE]      │ ← Logo centralizado, 120px
+│                      │ ← Fundo #1E5C7A
+│  BOTEQUIM SALAMARES  │ ← Nunito 800, #F0E4C0, 70%, 9pt, espaçado
+│                      │
+│ "Vem sujar as mãos." │ ← Pacifico, #F0E4C0, 16pt
+└──────────────────────┘</div>
+        <div class="color-row">
+          <div class="chip"><span class="dot" style="background:#1E5C7A"></span>Fundo — #1E5C7A</div>
+          <div class="chip"><span class="dot" style="background:#F0E4C0;border:1px solid #ccc"></span>Textos — #F0E4C0</div>
+          <div class="chip"><span class="dot" style="background:#C4922E"></span>Linha decorativa — #C4922E</div>
+        </div>
+      </div>
+      <div>
+        <h4>Página interna — estrutura</h4>
+        <div class="layout-sketch">┌──────────────────────┐
+│ CARANGUEJO           │ ← Box #D4451A, Playfair, branco
+│ (seção em destaque)  │ ← SEMPRE PRIMEIRO
+├──────────────────────┤ ← Fundo #F0E4C0
+│ LABEL DE SEÇÃO       │ ← Nunito 800, #1E5C7A, 60%, 8pt, caps
+│ Nome do Prato        │ ← Playfair 700, #1C1C1C, 13pt
+│ Descrição do prato   │ ← Nunito 400, #1C1C1C, 10pt
+│                R$XX  │ ← Playfair 700, #D4451A, 13pt
+└──────────────────────┘</div>
+        <div class="color-row">
+          <div class="chip"><span class="dot" style="background:#F0E4C0;border:1px solid #ccc"></span>Fundo interno — #F0E4C0</div>
+          <div class="chip"><span class="dot" style="background:#1C1C1C"></span>Texto nome — #1C1C1C</div>
+          <div class="chip"><span class="dot" style="background:#D4451A"></span>Preço — #D4451A</div>
+          <div class="chip"><span class="dot" style="background:#1E5C7A"></span>Label seção — #1E5C7A</div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Estrutura de seções e cópia modelo</h4>
+    <div class="prompt-box copy-text">SEÇÃO 1 — BOX VERMELHO (destaque):
+Label:  CARANGUEJO — O CARRO-CHEFE
+Item:   Caranguejo inteiro na estufa
+Desc:   Receita de família. Temperado com segredos que a gente guarda bem. Serve 1–2 pessoas.
+Preço:  R$ XX
+
+SEÇÃO 2:
+Label:  FRUTOS DO MAR
+[itens da casa]
+
+SEÇÃO 3:
+Label:  PETISCOS
+[itens da casa]
+
+SEÇÃO 4:
+Label:  BATIDINHAS &amp; BEBIDAS
+Detalhe: "Batidinha da casa — receita do Hasler. Pede sem medo."</div>
+
+    <span class="prompt-label">📋 Prompt Canva Magic Design — Capa</span>
+    <div class="prompt-box canva">Capa de cardápio para restaurante de frutos do mar, estilo botequim náutico. Fundo azul marinho (#1E5C7A). Logo de timão de navio centralizado em creme e dourado. Nome do restaurante em creme abaixo do logo. Tagline em fonte cursiva mais abaixo. Monograma decorativo em baixíssima opacidade como watermark. Sem fotos. Estilo elegante mas informal.</div>
+  </div>
+</div>
+
+<!-- APP 16: CARDÁPIO EXECUTIVO -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">16</div>
+    <h3>Cardápio Almoço Executivo — Card semanal</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>A4 · 210×297mm ou A5 sanfonado · troca semanal</p></div>
+      <div class="spec-item"><label>Imprimir</label><p>150g · sem plastificação · troca toda semana</p></div>
+      <div class="spec-item"><label>Tom</label><p>"Almoço do Botequim Salamares" — NUNCA "executivo" no cardápio</p></div>
+    </div>
+    <div class="layout-sketch">┌────────────────────────────────────┐
+│ ALMOÇO DO BOTEQUIM SALAMARES       │ ← Playfair 700, #1E5C7A, 20pt
+│ [data da semana]                   │ ← Nunito 400, #1C1C1C, 11pt
+├────────────────────────────────────┤ ← Fundo #F0E4C0
+│                                    │
+│ [BOX VERMELHO — DESTAQUE CARAN.]   │ ← Sempre o caranguejo em destaque
+│ Item com caranguejo do dia         │
+│                                    │
+│ Prato 1          R$XX              │ ← Playfair 700 nome + preço vermelho
+│ Prato 2          R$XX              │
+│ Prato vegetariano R$XX             │
+│ Sobremesa        R$XX              │
+│                                    │
+│ "Rápido no relógio, devagar        │ ← Pacifico, #D4451A, 12pt
+│  no sabor."                        │
+└────────────────────────────────────┘</div>
+  </div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 4: EMBALAGEM E DELIVERY
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Categoria 4</p>
+  <h2>Embalagem &amp; Delivery</h2>
+</div>
+
+<!-- APP 17: SACOLA KRAFT -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">17</div>
+    <h3>Sacola Kraft — Delivery / Takeaway</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho P: 20×25cm · Tamanho G: 30×40cm · impressão 2 cores</p></div>
+      <div class="spec-item"><label>Arte</label><p>Arte em Azul Oceano + Vermelho sobre kraft natural</p></div>
+    </div>
+    <div class="layout-sketch">┌──────────────────────────┐
+│     [ZÉ MARÉ lateral]    │ ← PNG mascote, ~50% altura
+│                          │ ← Arte em 2 cores: #1E5C7A e #D4451A
+│   BOTEQUIM               │ ← Nunito 800, #1E5C7A, espaçado
+│   SALAMARES              │ ← Nunito 800, #1E5C7A
+│                          │
+│ "Vem sujar as mãos."     │ ← Pacifico, #D4451A, 14pt
+└──────────────────────────┘</div>
+    <span class="prompt-label">📋 Prompt Canva Magic Design</span>
+    <div class="prompt-box canva">Arte para lateral de sacola kraft de restaurante. Arte apenas em azul marinho e vermelho (sem fundo — será impresso sobre papel kraft marrom). Mascote caranguejo cartoon na lateral ocupando metade da altura. Nome do restaurante em fonte bold espaçada. Tagline em fonte cursiva em vermelho. Sem outros elementos.</div>
+  </div>
+</div>
+
+<!-- APP 18: CAIXA TAKEAWAY -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">18</div>
+    <h3>Embalagem Caranguejo Takeaway — Caixa kraft</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 30×20cm (face frontal da caixa)</p></div>
+      <div class="spec-item"><label>Arte</label><p>1 cor: Azul Oceano sobre kraft</p></div>
+    </div>
+    <div class="prompt-box copy-text">FACE FRONTAL:
+Logo Salamares centralizado pequeno
+"Botequim Salamares" em Playfair Display
+
+FACE LATERAL (instrução):
+"Esquenta no forno, não no micro-ondas.
+ Eu mereço mais do que isso."
+                            — Zé Maré
+(Pacifico Regular, #1E5C7A, 11pt)
+
+LACRE (adesivo circular 5cm):
+Timão + "Salamares" · Azul sobre branco · 1 cor</div>
+  </div>
+</div>
+
+<!-- APP 19: ADESIVO LACRE -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">19</div>
+    <h3>Adesivo Lacre — Embalagens</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 50×50mm · circular</p></div>
+      <div class="spec-item"><label>Impressão</label><p>1 cor · Azul Oceano sobre papel adesivo branco</p></div>
+    </div>
+    <div class="layout-sketch">  ╔═════════════╗
+ ╔               ╗  ← borda circular #1E5C7A
+║   [TIMÃO]       ║  ← timão centralizado
+║   SALAMARES     ║  ← Playfair, #1E5C7A, 8pt, espaçado
+ ╚               ╝
+  ╚═════════════╝</div>
+    <div class="rule-box">No Canva: criar forma circular, arte em #1E5C7A sobre fundo branco. Exportar como PDF para gráfica fazer autoclave/adesivo circular.</div>
+  </div>
+</div>
+
+<!-- APP 20: ADESIVO ZÉ MARÉ (cliente) -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">20</div>
+    <h3>Adesivo Zé Maré — Para o cliente levar</h3>
+    <span class="prio prio-baixa">Prioridade Baixa</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Circular 80×80mm ou recortado no shape do mascote</p></div>
+      <div class="spec-item"><label>Distribuição</label><p>Com a conta · ao pedir no balcão</p></div>
+      <div class="spec-item"><label>Objetivo</label><p>Cliente cola no carro / notebook / garrafa → publicidade orgânica</p></div>
+    </div>
+    <div class="prompt-box copy-text">ARTE: Zé Maré (sorriso aberto) + frase
+FRASE: "Eu já estive no Salamares. E você?"
+FONTE FRASE: Pacifico, #FAFAF5
+FUNDO: #1E5C7A (circular)
+BORDA: linha dourada #C4922E, 2pt</div>
+  </div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 5: UNIFORME
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Categoria 5</p>
+  <h2>Uniforme da Equipe</h2>
+</div>
+
+<!-- APP 21: CAMISETA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">21</div>
+    <h3>Camiseta da Equipe — Frente + Costas</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Cor da camiseta</label><p>#1E5C7A — Azul Oceano (Pantone 3015 C é equivalente próximo)</p></div>
+      <div class="spec-item"><label>Arte</label><p>Branco Espuma #FAFAF5 · serigrafia 1 cor</p></div>
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 30×40cm (área de arte do peito)</p></div>
+      <div class="spec-item"><label>Canva tip</label><p>Usar template "camiseta" ou "t-shirt mockup" para visualizar</p></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h4>Frente (peito esquerdo)</h4>
+        <div class="prompt-box copy-text">Logo Salamares (timão)   ← 6cm largura
+"Botequim Salamares"     ← Nunito 800, #FAFAF5, 8pt
+Posição: peito esquerdo</div>
+      </div>
+      <div>
+        <h4>Costas (centralizado)</h4>
+        <div class="prompt-box copy-text">Timão grande (watermark) ← 25cm, 15% opacidade
+"BOTEQUIM SALAMARES"     ← Nunito 900, #FAFAF5, 18pt, espaçado
+"Vem sujar as mãos."     ← Pacifico, #FAFAF5, 65% opacidade, 12pt</div>
+      </div>
+    </div>
+    <span class="prompt-label">📋 Prompt Canva Magic Design — Visualização</span>
+    <div class="prompt-box canva">Mockup de camiseta polo azul marinho para equipe de restaurante. Arte no peito esquerdo: logo de timão de navio branco pequeno + nome do restaurante. Arte nas costas centralizada: nome do restaurante em fonte bold espaçada branca + tagline abaixo em cursiva. Estilo simples e profissional.</div>
+  </div>
+</div>
+
+<!-- APP 22: AVENTAL -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">22</div>
+    <h3>Avental — Uniforme Principal</h3>
+    <span class="prio prio-media">Prioridade Média</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Modelo</label><p>Avental de cintura (meio-avental estilo boteco)</p></div>
+      <div class="spec-item"><label>Cor</label><p>Azul Oceano ou Creme Maré — decidir com fornecedor</p></div>
+      <div class="spec-item"><label>Arte</label><p>Logo bordado no peito + nome do funcionário abaixo · Bolso com timão bordado em dourado</p></div>
+      <div class="spec-item"><label>Formato Canva</label><p>Para bordado: arte em preto simples · Tamanho: 8×8cm (peito)</p></div>
+    </div>
+    <div class="prompt-box copy-text">PEITO:
+Logo Salamares simplificado (1 cor para bordado)
+"[nome do funcionário]" ← Nunito 700, embaixo do logo
+
+BOLSO:
+Timão pequeno + "S" ← bordado em #C4922E (Dourado Timão)
+                       3×3cm</div>
+    <div class="rule-box">Para bordado: exportar arte em preto sólido, sem gradientes. O arquivo vai para a bordadeira exatamente como está. Timão do bolso pode ser dourado separado — especificar cor pantone ao fornecedor: Pantone 131 C (equivalente ao Dourado Timão).</div>
+  </div>
+</div>
+
+<!-- APP 23: BONÉ -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">23</div>
+    <h3>Boné — Opcional</h3>
+    <span class="prio prio-baixa">Prioridade Baixa</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Cor do boné</label><p>Azul Oceano ou Creme Maré</p></div>
+      <div class="spec-item"><label>Arte</label><p>Monograma "S" cursivo bordado na frente · Dourado Timão</p></div>
+    </div>
+    <div class="prompt-box copy-text">FRENTE: Monograma "S" estilizado + âncora pequena decorativa
+         Bordado em #C4922E (Dourado) sobre boné azul
+         Tamanho: 5×5cm
+LATERAL: Timão pequeno bordado (opcional)</div>
+  </div>
+</div>
+
+<!-- ================================================
+     CATEGORIA 6: SINALIZAÇÃO
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Categoria 6</p>
+  <h2>Sinalização &amp; Ambiência</h2>
+</div>
+
+<!-- APP 24: TOTEM ZÉ MARÉ -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">24</div>
+    <h3>Totem Zé Maré — Entrada do restaurante</h3>
+    <span class="prio prio-baixa">Prioridade 90 dias</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Material</label><p>MDF 15mm recortado CNC ou PS recortado</p></div>
+      <div class="spec-item"><label>Altura</label><p>±1,20m — escala humana, ponto de foto</p></div>
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 60×120cm (renderização para aprovação)</p></div>
+    </div>
+    <div class="layout-sketch">┌─────────────────────────┐
+│   [ZÉ MARÉ FULL BODY]   │ ← Gerado no ChatGPT com referência
+│                         │ ← Arte completa do personagem
+│   Segurando placa azul  │ ← Placa separada (trocável)
+│   "Hoje tem caranguejo. │
+│    E amanhã também."    │ ← Pacifico, #F0E4C0
+│                         │
+│       [BASE/SUPORTE]    │ ← MDF separado, tinta #163F55
+└─────────────────────────┘</div>
+
+    <span class="prompt-label">🤖 Prompt ChatGPT — Zé Maré full body para totem</span>
+    <div class="prompt-box image">Using this image as style reference, generate Zé Maré (red cartoon 3D crab) in full body standing pose, holding a dark blue rectangular sign/board in both claws. Open smile expression. Body fills the full vertical frame. Transparent background. Body #D4451A, belly #E8C870, golden joints #C4922E. The sign is dark blue #163F55, empty (no text). Tall vertical format (portrait), character takes up 90% of the frame. High resolution for large format print.</div>
+
+    <h4>Mensagens trocáveis para a plaquinha</h4>
+    <div class="prompt-box copy-text">"Hoje tem caranguejo. E amanhã também."
+"A mesa tá esperando."
+"Bem-vindo ao Salamares. Finalmente."
+"Já comeu? Não conta pra ninguém."
+"[DATA ESPECIAL]: A gente comemora com caranguejo. Óbvio."</div>
+  </div>
+</div>
+
+<!-- APP 25: QUADRO DE LOUSA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">25</div>
+    <h3>Quadro de Lousa — Menu do Dia</h3>
+    <span class="prio prio-baixa">Prioridade Baixa</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Tamanho personalizado · 60×80cm · visualização digital</p></div>
+      <div class="spec-item"><label>Na prática</label><p>Moldura madeira rústica com corda náutica · escrita manual em giz</p></div>
+    </div>
+    <div class="layout-sketch">┌────────────────────────────────────┐
+│ ┌──────────────────────────────┐   │ ← Moldura de madeira
+│ │        HOJE NO               │   │
+│ │     SALAMARES 🦀             │ ← Zé Maré impresso fixo no canto
+│ │                              │   │
+│ │ Caranguejo inteiro    R$XX   │ ← Escrita manual em giz branco
+│ │ Arroz de caranguejo  R$XX   │
+│ │ Combo + batidinha    R$XX   │
+│ │                              │   │
+│ │         @sala_mares          │   │
+│ └──────────────────────────────┘   │
+└────────────────────────────────────┘</div>
+    <div class="rule-box">Canva serve para criar o template de fundo (lousa com Zé Maré e cabeçalho impresso). O cardápio do dia é preenchido manualmente com giz. Imprimir 1 vez e reutilizar.</div>
+  </div>
+</div>
+
+<!-- APP 26: SINALIZAÇÃO DE MESA -->
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">26</div>
+    <h3>Sinalização de Mesa — Número + QR Code</h3>
+    <span class="prio prio-baixa">Prioridade Baixa</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Formato Canva</label><p>Cartão vertical · 7×10cm</p></div>
+      <div class="spec-item"><label>Material</label><p>MDF ou acrílico — peça para o fornecedor personalizar</p></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h4>Número da Mesa</h4>
+        <div class="prompt-box copy-text">Disco de madeira ou acrílico azul
+Timão gravado (laser ou impressão)
+Número em Playfair Display Black
+Cor: #FAFAF5 sobre #1E5C7A</div>
+      </div>
+      <div>
+        <h4>QR Code do Cardápio</h4>
+        <div class="prompt-box copy-text">Arte: Timão pequeno + "Escaneie para o cardápio"
+QR Code gerado no Canva (grátis)
+Fundo: #F0E4C0
+Texto: Nunito 700, #1E5C7A, 9pt</div>
+      </div>
+    </div>
+    <div class="rule-box">No Canva: usar o elemento "QR Code" (disponível na barra lateral de elementos) e inserir o link do cardápio digital ou @sala_mares do Instagram. É gratuito.</div>
+  </div>
+</div>
+
+<!-- ================================================
+     BÔNUS: GOOGLE E IFOOD
+================================================ -->
+<div class="section-divider">
+  <p class="cat-label">Bônus — Correções Urgentes</p>
+  <h2>Google My Business + iFood</h2>
+</div>
+
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">+</div>
+    <h3>Google My Business — Foto de Capa + Perfil</h3>
+    <span class="prio prio-alta">Urgente · Custo Zero</span>
+  </div>
+  <div class="app-body">
+    <div class="spec-row">
+      <div class="spec-item"><label>Capa</label><p>1200×675px (proporção 16:9)</p></div>
+      <div class="spec-item"><label>Perfil</label><p>750×750px · usar logo ícone (timão)</p></div>
+    </div>
+    <div class="prompt-box copy-text">CAPA: Foto real do caranguejo em destaque + logo no canto + overlay azul 30% opacidade
+      Ou: Arte em Canva — Fundo #1E5C7A + logo centralizado + "Praia da Costa · Vila Velha"
+PERFIL: Logo timão (ícone isolado) sobre #1E5C7A</div>
+    <span class="prompt-label">📋 Prompt Canva Magic Design — Capa GMB</span>
+    <div class="prompt-box canva">Banner de capa para Google Maps de restaurante. Proporção 16:9. Fundo azul marinho (#1E5C7A). Logo de timão centralizado em creme/dourado. Nome "Botequim Salamares" em fonte serif branca. "Praia da Costa, Vila Velha - ES" abaixo em fonte menor. Estilo náutico e acolhedor.</div>
+  </div>
+</div>
+
+<div class="app-card">
+  <div class="app-header">
+    <div class="app-num">+</div>
+    <h3>iFood — Banner + Destaque (URGENTE)</h3>
+    <span class="prio prio-alta">🔴 Corrigir imediatamente</span>
+  </div>
+  <div class="app-body">
+    <div class="rule-box"><strong>Problema atual:</strong> hambúrguer/feijoada em destaque no iFood contradiz o posicionamento. O caranguejo deve ser o primeiro item visível e o carro-chefe.</div>
+    <div class="spec-row">
+      <div class="spec-item"><label>Banner iFood</label><p>1200×400px</p></div>
+      <div class="spec-item"><label>Logo iFood</label><p>500×500px</p></div>
+    </div>
+    <div class="prompt-box copy-text">BANNER: Foto do caranguejo inteiro em destaque (foto real)
+        Logo Salamares canto direito
+        Fundo #1E5C7A
+        Texto: "Caranguejo capixaba · Praia da Costa"
+
+LOGO: Timão sobre #1E5C7A · PNG quadrado
+
+AÇÕES IMEDIATAS SEM DESIGN:
+① Trocar foto de destaque: caranguejo deve ser o 1º item
+② Reescrever descrição do carro-chefe:
+   "O único caranguejo dessa praia. Temperado do jeito certo,
+    com receita que a gente guarda bem. Babador incluso —
+    você vai precisar."
+③ Bio do iFood: "Botequim Salamares — O caranguejo capixaba
+   da Praia da Costa. Receita de família. Mesa sem hora pra acabar."</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--azul-e);color:var(--creme);text-align:center;padding:3rem 2rem;margin-top:3rem">
+  <p style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.5rem">Botequim Salamares — Guia de Execução Canva</p>
+  <p style="font-size:.8rem;opacity:.6">26 aplicações · Use o Passaporte da Marca no ChatGPT para consistência · Configure o Brand Kit antes de qualquer peça</p>
+</footer>
+
+</body>
+</html>

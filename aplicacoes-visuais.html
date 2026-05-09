@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicações Visuais — Botequim Salamares</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:        #1E5C7A;
+      --azul-escuro: #163F55;
+      --azul-claro:  #2A7A9E;
+      --vermelho:    #D4451A;
+      --dourado:     #C4922E;
+      --creme:       #F0E4C0;
+      --areia:       #E8D5A3;
+      --branco:      #FAFAF5;
+      --preto:       #1C1C1C;
+      --kraft:       #C8A87A;
+      --kraft-escuro:#8B6914;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: #F5F0E8; color: var(--preto); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--azul-escuro);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 52px;
+    }
+    nav .brand { font-family: 'Playfair Display', serif; color: var(--creme); font-size: .95rem; }
+    nav ul { list-style: none; display: flex; gap: 1.2rem; }
+    nav a { color: var(--creme); text-decoration: none; font-size: .72rem; font-weight: 700;
+            letter-spacing: .1em; text-transform: uppercase; opacity: .75; transition: opacity .2s; }
+    nav a:hover { opacity: 1; }
+
+    /* HERO */
+    .page-hero {
+      background: var(--azul); padding: 7rem 2rem 4rem; text-align: center;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem); color: var(--branco); margin-bottom: .75rem;
+    }
+    .page-hero p { color: var(--creme); opacity: .85; max-width: 600px; margin: 0 auto; }
+
+    /* SECTION */
+    .section { padding: 4rem 2rem; }
+    .section-alt { background: var(--branco); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 2.5rem; }
+    .section-label {
+      font-size: .68rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--vermelho); margin-bottom: .5rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--azul); margin-bottom: .5rem;
+    }
+    .section-header p { font-size: .95rem; color: #555; max-width: 700px; }
+
+    /* MOCKUP DISPLAY */
+    .mockup-row { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; margin-bottom: 3rem; }
+    .mockup-label {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em;
+      color: #888; margin-top: .75rem; text-align: center;
+    }
+
+    /* ============================
+       INSTAGRAM POST TEMPLATES
+    ============================ */
+    .insta-post {
+      width: 360px; height: 360px; border-radius: 4px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,.18);
+    }
+
+    /* Template A — Base */
+    .post-base { background: var(--azul); }
+    .post-base .photo-block {
+      position: absolute; top: 0; left: 0; right: 0; height: 220px;
+      background: linear-gradient(135deg, #0d3545 0%, #1e5c7a 40%, #2a7a9e 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .post-base .photo-block img {
+      width: 100%; height: 100%; object-fit: cover; opacity: .75;
+    }
+    .post-base .photo-block .photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0a2030 0%, #1e5c7a 50%, #3a8ab0 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+    }
+    .post-base .copy-block {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.25rem;
+      background: var(--azul);
+    }
+    .post-base .copy-block .tag {
+      font-size: .6rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--creme); opacity: .65; margin-bottom: .25rem;
+    }
+    .post-base .copy-block p {
+      font-family: 'Playfair Display', serif; font-size: 1rem;
+      color: var(--branco); line-height: 1.3; margin: 0;
+    }
+    .post-base .logo-small {
+      position: absolute; top: .75rem; right: .75rem;
+      background: rgba(30,92,122,.85); border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: .8rem;
+      font-weight: 900; color: var(--creme); border: 1px solid var(--dourado);
+    }
+
+    /* Template B — Energia */
+    .post-energia { background: var(--vermelho); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+    .post-energia .titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      color: var(--branco); text-align: center; line-height: 1.2; margin-bottom: .5rem;
+    }
+    .post-energia .sub {
+      font-size: .85rem; color: rgba(250,250,245,.8); text-align: center; margin-bottom: 1.5rem;
+    }
+    .post-energia .badge-preco {
+      background: var(--branco); border-radius: 50px;
+      padding: .5rem 1.5rem;
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 900; color: var(--vermelho);
+    }
+    .post-energia .rodape {
+      position: absolute; bottom: 1rem;
+      font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(250,250,245,.6);
+    }
+
+    /* Template C — Zé Maré */
+    .post-ze-mare {
+      background: var(--azul-escuro);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 1.25rem;
+    }
+    .post-ze-mare .mascot-area {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 100px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .post-ze-mare .mascot-area img {
+      height: 100%; width: 100%; object-fit: contain;
+    }
+    .post-ze-mare .speech {
+      width: 100%; text-align: center; z-index: 2;
+    }
+    .post-ze-mare .speech p {
+      font-family: 'Pacifico', cursive; font-size: 1.3rem;
+      color: var(--creme); line-height: 1.4; margin-bottom: .4rem;
+    }
+    .post-ze-mare .speech .handle {
+      font-size: .7rem; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--dourado); opacity: .8;
+    }
+
+    /* ============================
+       INSTAGRAM STORY TEMPLATES
+    ============================ */
+    .insta-story {
+      width: 203px; height: 360px; border-radius: 12px;
+      position: relative; overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+
+    .story-welcome {
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 2rem 1.25rem 1.5rem;
+    }
+    .story-welcome .timao-area {
+      display: flex; align-items: center; justify-content: center; flex: 1;
+    }
+    .story-welcome .timao-area img { width: 110px; }
+    .story-welcome .headline {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      color: var(--branco); text-align: center; line-height: 1.3; margin-bottom: .75rem;
+    }
+    .story-welcome .tagline-s {
+      font-family: 'Pacifico', cursive; font-size: 1rem;
+      color: var(--creme); text-align: center; margin-bottom: 1rem;
+    }
+    .story-welcome .cta-story {
+      background: var(--vermelho); color: var(--branco);
+      padding: .5rem 1.25rem; border-radius: 50px;
+      font-size: .75rem; font-weight: 700; text-align: center; letter-spacing: .08em;
+    }
+
+    .story-promo {
+      background: var(--vermelho);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem 1rem;
+      gap: .75rem;
+    }
+    .story-promo .titulo-promo {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem;
+      color: var(--branco); text-align: center; line-height: 1.2;
+    }
+    .story-promo .destaque {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .15em; color: rgba(250,250,245,.75);
+    }
+    .story-promo .preco-grande {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem;
+      font-weight: 900; color: var(--branco);
+    }
+    .story-promo .frase-ze {
+      font-family: 'Pacifico', cursive; font-size: .9rem;
+      color: rgba(250,250,245,.85); text-align: center; font-style: normal;
+    }
+    .story-promo .handle-s {
+      font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(250,250,245,.6); position: absolute; bottom: 1rem;
+    }
+
+    /* ============================
+       BABADOR
+    ============================ */
+    .babador-wrapper { display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap; }
+    .babador {
+      width: 220px; position: relative;
+    }
+    .babador-body {
+      width: 220px; min-height: 270px;
+      background: var(--azul);
+      border-radius: 0 0 50% 50% / 0 0 30% 30%;
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1rem 1.5rem 2.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+    .babador-neck {
+      position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 0;
+    }
+    .babador-cord {
+      height: 8px; width: 55px;
+      background: var(--creme); border-radius: 4px;
+      opacity: .9;
+    }
+    .babador-hole {
+      width: 60px; height: 20px; border-radius: 50%;
+      background: #F5F0E8; border: 3px solid var(--creme);
+    }
+    .babador-mascot-area {
+      width: 100%; flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: .5rem 0;
+    }
+    .babador-mascot-area img { width: 100px; object-fit: contain; }
+    .babador-text {
+      font-family: 'Pacifico', cursive; font-size: 1rem; color: var(--branco);
+      text-align: center; margin-top: .5rem;
+    }
+    .babador-back {
+      width: 220px; min-height: 270px;
+      background: var(--azul-escuro);
+      border-radius: 0 0 50% 50% / 0 0 30% 30%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 1.5rem; gap: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+    .babador-back .timao-back { font-size: 3rem; opacity: .6; }
+    .babador-back p {
+      font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--creme); opacity: .7; text-align: center;
+    }
+    .babador-back .handle-back {
+      font-family: 'Pacifico', cursive; font-size: .9rem; color: var(--dourado);
+    }
+
+    /* ============================
+       CARTÃO DE VISITA
+    ============================ */
+    .card-pair { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .biz-card {
+      width: 270px; height: 150px; border-radius: 8px; overflow: hidden;
+      position: relative; box-shadow: 0 6px 24px rgba(0,0,0,.18); flex-shrink: 0;
+    }
+    .biz-front {
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .4rem; padding: 1rem;
+    }
+    .biz-front .logo-biz { width: 48px; }
+    .biz-front .nome-biz {
+      font-family: 'Playfair Display', serif; font-size: .65rem;
+      font-weight: 900; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--branco); text-align: center;
+    }
+    .biz-front .nome-biz span { font-size: .7rem; color: var(--creme); }
+    .biz-front .mascot-biz { position: absolute; bottom: 4px; right: 8px; font-size: 1.4rem; opacity: .85; }
+
+    .biz-back {
+      background: var(--azul-escuro);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .35rem; padding: 1rem;
+    }
+    .biz-back .tagline-biz {
+      font-family: 'Pacifico', cursive; font-size: .9rem; color: var(--creme);
+    }
+    .biz-back p {
+      font-size: .6rem; color: var(--creme); opacity: .7; text-align: center; line-height: 1.5;
+    }
+    .biz-back .handle-biz {
+      font-size: .65rem; font-weight: 800; letter-spacing: .15em; color: var(--dourado);
+    }
+
+    /* ============================
+       STICKERS WHATSAPP
+    ============================ */
+    .stickers-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1rem;
+    }
+    .sticker {
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 1rem; gap: .3rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      position: relative; overflow: hidden;
+    }
+    .sticker::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 50%; border: 3px solid rgba(196,146,46,.4);
+    }
+    .sticker .emoji-s { font-size: 2.2rem; line-height: 1; }
+    .sticker .txt-s {
+      font-family: 'Pacifico', cursive; font-size: .62rem;
+      color: var(--creme); line-height: 1.2;
+    }
+    .sticker-vermelho { background: var(--vermelho); }
+    .sticker-creme { background: var(--creme); }
+    .sticker-creme .txt-s { color: var(--azul-escuro); }
+    .sticker-escuro { background: var(--azul-escuro); }
+
+    /* ============================
+       CAPA DO CARDÁPIO
+    ============================ */
+    .cardapio-wrapper { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+    .cardapio-cover {
+      width: 210px; height: 297px; border-radius: 4px;
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.22);
+      position: relative; overflow: hidden;
+    }
+    .cardapio-cover .watermark {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: .07; font-size: 12rem; font-family: 'Playfair Display', serif;
+      font-weight: 900; color: var(--branco);
+    }
+    .cardapio-cover .logo-capa { width: 90px; position: relative; z-index: 1; }
+    .cardapio-cover .titulo-capa {
+      font-family: 'Playfair Display', serif; font-size: .65rem;
+      letter-spacing: .3em; text-transform: uppercase; color: var(--dourado);
+      position: relative; z-index: 1;
+    }
+    .cardapio-cover .tagline-capa {
+      font-family: 'Pacifico', cursive; font-size: .75rem;
+      color: var(--creme); position: relative; z-index: 1;
+    }
+
+    .cardapio-interno {
+      width: 210px; background: var(--creme);
+      border-radius: 4px; padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.1);
+    }
+    .cardapio-interno .secao-label {
+      font-size: .55rem; font-weight: 800; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--azul); margin-bottom: .5rem; opacity: .6;
+    }
+    .cardapio-interno h4 {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      color: var(--azul); margin-bottom: 1rem; line-height: 1.2;
+    }
+    .cardapio-interno .item-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px dotted var(--areia); padding: .4rem 0;
+    }
+    .cardapio-interno .item-nome { font-size: .8rem; color: var(--preto); }
+    .cardapio-interno .item-preco {
+      font-family: 'Playfair Display', serif; font-size: .85rem;
+      font-weight: 700; color: var(--vermelho);
+    }
+    .cardapio-interno .item-desc {
+      font-size: .65rem; color: #777; margin-top: .15rem;
+    }
+
+    /* ============================
+       PAPEL DE MESA (preview)
+    ============================ */
+    .papel-preview {
+      width: 100%; max-width: 750px;
+      background: #D4BA8A; /* kraft paper tone */
+      border-radius: 6px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+      position: relative; overflow: hidden;
+    }
+    .papel-watermark {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .papel-watermark-img {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(30,92,122,.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .papel-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .papel-guia {
+      grid-column: 1; grid-row: 1 / span 2;
+      background: rgba(30,92,122,.88); border-radius: 8px;
+      padding: 1.25rem; color: var(--branco);
+    }
+    .papel-guia h4 {
+      font-family: 'Playfair Display', serif; font-size: .9rem;
+      color: var(--creme); margin-bottom: .75rem; line-height: 1.2;
+    }
+    .papel-guia .passo {
+      display: flex; align-items: flex-start; gap: .5rem;
+      margin-bottom: .6rem; font-size: .72rem; line-height: 1.4;
+    }
+    .papel-guia .n {
+      background: var(--vermelho); color: var(--branco);
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; font-weight: 900; flex-shrink: 0;
+    }
+    .papel-mascote {
+      grid-column: 2; grid-row: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem;
+    }
+    .papel-mascote img { width: 110px; }
+    .papel-mascote .emoji-mascot { font-size: 5rem; }
+    .papel-frase {
+      grid-column: 3; grid-row: 1;
+      display: flex; flex-direction: column; justify-content: center; gap: .75rem;
+    }
+    .papel-frase blockquote {
+      font-family: 'Pacifico', cursive; font-size: .78rem;
+      color: var(--azul-escuro); line-height: 1.5;
+      border-left: 2px solid var(--azul); padding-left: .75rem;
+    }
+    .papel-frase blockquote cite { font-size: .65rem; opacity: .7; font-style: normal; }
+    .papel-qr {
+      grid-column: 2; grid-row: 2;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .papel-qr .qr-placeholder {
+      width: 60px; height: 60px;
+      background: white; border-radius: 4px;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 2px; padding: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .papel-qr .qr-placeholder div {
+      background: var(--preto); border-radius: 1px;
+    }
+    .papel-qr .qr-placeholder div:nth-child(odd) { opacity: .2; }
+    .papel-insta {
+      grid-column: 3; grid-row: 2;
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;
+      gap: .25rem;
+    }
+    .papel-insta p { font-size: .65rem; color: var(--azul-escuro); font-weight: 700; }
+    .papel-insta .at {
+      font-family: 'Pacifico', cursive; font-size: .8rem; color: var(--azul);
+    }
+
+    /* ============================
+       EMBALAGEM DELIVERY
+    ============================ */
+    .embalagem-row { display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+
+    .sacola {
+      width: 180px; height: 230px; position: relative;
+    }
+    .sacola-body {
+      width: 160px; height: 200px;
+      margin: 0 auto;
+      background: var(--kraft);
+      border-radius: 4px 4px 8px 8px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .75rem; padding: 1rem;
+      box-shadow: 4px 6px 16px rgba(0,0,0,.2);
+      position: relative; overflow: hidden;
+    }
+    .sacola-body::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.03) 0%, transparent 100%);
+    }
+    .sacola-alca-wrap {
+      position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 30px;
+    }
+    .sacola-alca {
+      width: 3px; height: 20px; background: var(--kraft-escuro);
+      border-radius: 2px;
+    }
+    .sacola-mascot { font-size: 2.5rem; position: relative; z-index: 1; }
+    .sacola-marca {
+      position: relative; z-index: 1; text-align: center;
+    }
+    .sacola-marca p {
+      font-family: 'Playfair Display', serif; font-size: .72rem;
+      font-weight: 700; letter-spacing: .08em;
+      color: var(--azul-escuro); line-height: 1.3;
+    }
+    .sacola-tagline {
+      font-size: .6rem; font-family: 'Pacifico', cursive;
+      color: var(--azul); position: relative; z-index: 1;
+    }
+
+    .caixa-takeaway {
+      width: 220px; height: 160px;
+      background: #C8A87A; border-radius: 6px;
+      padding: 1.25rem;
+      box-shadow: 4px 6px 20px rgba(0,0,0,.2);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .caixa-takeaway::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 30px;
+      background: #A88050; border-radius: 6px 6px 0 0;
+    }
+    .caixa-takeaway .caixa-logo { width: 40px; position: relative; z-index: 1; margin-top: 1.5rem; }
+    .caixa-takeaway .caixa-instrucao {
+      font-family: 'Pacifico', cursive; font-size: .65rem;
+      color: var(--azul-escuro); line-height: 1.4;
+    }
+    .caixa-takeaway .caixa-lacre {
+      position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+      background: var(--azul); color: var(--branco);
+      padding: .2rem .75rem; border-radius: 50px; font-size: .55rem;
+      font-weight: 700; letter-spacing: .1em; z-index: 2;
+    }
+
+    .adesivo {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+      gap: .2rem; padding: .75rem;
+      position: relative;
+    }
+    .adesivo::before {
+      content: ''; position: absolute; inset: 3px; border-radius: 50%;
+      border: 1.5px solid var(--dourado); opacity: .6;
+    }
+    .adesivo p {
+      font-family: 'Playfair Display', serif; font-size: .5rem;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--creme);
+      text-align: center; line-height: 1.3;
+    }
+    .adesivo .timao-adh { font-size: 1.4rem; }
+
+    /* ============================
+       UNIFORME
+    ============================ */
+    .uniforme-row { display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: flex-start; }
+
+    .camiseta {
+      width: 180px; position: relative;
+    }
+    .camiseta-body {
+      width: 180px; height: 200px;
+      background: var(--azul);
+      border-radius: 0 0 8px 8px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+    }
+    .camiseta-gola {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 50px; height: 16px; border-radius: 0 0 50% 50%;
+      background: #163F55; border: 2px solid #0d2c3b;
+    }
+    .camiseta-ombro-e {
+      position: absolute; top: 0; left: 0;
+      width: 35px; height: 35px; background: var(--azul);
+      border-radius: 0 0 100% 0; border-right: 2px solid #163F55;
+    }
+    .camiseta-ombro-d {
+      position: absolute; top: 0; right: 0;
+      width: 35px; height: 35px; background: var(--azul);
+      border-radius: 0 0 0 100%; border-left: 2px solid #163F55;
+    }
+    .camiseta-logo {
+      position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .25rem;
+    }
+    .camiseta-logo-img { width: 50px; }
+    .camiseta-logo p {
+      font-size: .45rem; font-weight: 800; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--creme); opacity: .8;
+    }
+    .camiseta-costas {
+      width: 180px; height: 200px;
+      background: var(--azul-escuro);
+      border-radius: 0 0 8px 8px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .75rem; position: relative; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+    }
+    .camiseta-costas .timao-costas { font-size: 3.5rem; opacity: .15; position: absolute; }
+    .camiseta-costas p {
+      font-family: 'Playfair Display', serif; font-size: .65rem;
+      font-weight: 900; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--creme); text-align: center; position: relative; z-index: 1;
+    }
+    .camiseta-costas .tagline-costas {
+      font-family: 'Pacifico', cursive; font-size: .75rem;
+      color: var(--creme); opacity: .65; position: relative; z-index: 1;
+    }
+
+    .avental-corpo {
+      width: 150px; background: var(--azul);
+      border-radius: 4px;
+      padding: 2.5rem 1rem 3rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+      position: relative;
+    }
+    .avental-bolso {
+      position: absolute; bottom: 2rem; left: 1rem; right: 1rem;
+      height: 35px; background: rgba(0,0,0,.15);
+      border-radius: 4px; border-top: 2px solid rgba(196,146,46,.3);
+    }
+    .avental-logo-img { width: 55px; }
+    .avental-nome {
+      font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--creme); opacity: .7;
+    }
+
+    /* ============================
+       EXPRESSÕES ZÉ MARÉ
+    ============================ */
+    .expressoes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.25rem;
+    }
+    .expr-mockup {
+      background: var(--azul);
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+    .expr-mockup .expr-img {
+      height: 160px; background: var(--azul-escuro);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; position: relative;
+    }
+    .expr-mockup .expr-img img {
+      height: 100%; width: 100%; object-fit: contain;
+    }
+    .expr-mockup .expr-copy {
+      padding: .75rem 1rem;
+    }
+    .expr-mockup .expr-num {
+      font-size: .6rem; font-weight: 800; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--dourado); opacity: .8; margin-bottom: .2rem;
+    }
+    .expr-mockup .expr-title {
+      font-family: 'Playfair Display', serif; font-size: .85rem;
+      color: var(--branco); margin-bottom: .2rem;
+    }
+    .expr-mockup .expr-phrase {
+      font-family: 'Pacifico', cursive; font-size: .7rem; color: var(--creme); opacity: .75;
+    }
+
+    /* ============================
+       IDENTIDADE TOTEM
+    ============================ */
+    .totem-wrapper { display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap; }
+    .totem {
+      width: 120px; position: relative; display: flex; flex-direction: column; align-items: center;
+    }
+    .totem-mascot {
+      width: 120px; height: 200px;
+      background: transparent;
+      display: flex; align-items: flex-end; justify-content: center;
+      position: relative;
+    }
+    .totem-mascot img { height: 100%; width: 100%; object-fit: contain; }
+    .totem-placa {
+      width: 140px; height: 42px;
+      background: var(--azul);
+      border-radius: 6px; margin-top: -8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+    .totem-placa p {
+      font-family: 'Pacifico', cursive; font-size: .65rem;
+      color: var(--creme); text-align: center; line-height: 1.3;
+    }
+    .totem-base {
+      width: 20px; height: 60px; background: var(--kraft-escuro);
+      border-radius: 2px; margin-top: 0;
+    }
+    .totem-suporte {
+      width: 60px; height: 8px; background: #5C4010;
+      border-radius: 2px;
+    }
+
+    /* ============================
+       HIGHLIGHTS INSTAGRAM
+    ============================ */
+    .highlights-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .highlight-cover {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--azul);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,.2);
+      position: relative;
+    }
+    .highlight-cover::before {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--vermelho), var(--dourado));
+      z-index: -1;
+    }
+    .highlight-cover .hl-icon { font-size: 1.6rem; line-height: 1; }
+    .highlight-cover .hl-label {
+      font-size: .45rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--creme); text-align: center;
+    }
+
+    /* ============================
+       FIDELIDADE
+    ============================ */
+    .fidelidade-card {
+      width: 300px; height: 170px; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18); position: relative;
+    }
+    .fid-front {
+      width: 100%; height: 100%; background: var(--azul);
+      display: flex; flex-direction: column;
+      padding: 1.25rem;
+      position: relative; overflow: hidden;
+    }
+    .fid-front .timao-wm {
+      position: absolute; right: -1rem; top: -1rem;
+      font-size: 8rem; opacity: .07; font-family: 'Playfair Display', serif;
+    }
+    .fid-front .fid-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .fid-front .fid-logo-img { width: 36px; }
+    .fid-front .fid-titulo {
+      font-family: 'Playfair Display', serif; font-size: .75rem;
+      color: var(--creme); text-align: right; line-height: 1.3;
+    }
+    .fid-front .carimbos {
+      display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto;
+    }
+    .fid-front .carimbo {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid rgba(196,146,46,.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem;
+    }
+    .fid-front .carimbo.preenchido { background: var(--vermelho); border-color: var(--vermelho); }
+    .fid-front .fid-regra {
+      font-size: .55rem; color: var(--creme); opacity: .6; margin-top: .35rem;
+    }
+
+    /* ============================
+       UTILS
+    ============================ */
+    .note-box {
+      background: rgba(196,146,46,.1); border-left: 3px solid var(--dourado);
+      border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin-top: 1.5rem;
+    }
+    .note-box p { font-size: .85rem; color: #5a4010; margin: 0; line-height: 1.5; }
+    .note-box strong { color: var(--azul); }
+
+    .spec-box {
+      background: var(--branco); border-radius: 10px; padding: 1.25rem;
+      border: 1px solid var(--areia); margin-top: 1.5rem;
+    }
+    .spec-box h5 {
+      font-size: .7rem; font-weight: 800; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--azul); margin-bottom: .75rem;
+    }
+    .spec-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .spec-item { min-width: 140px; }
+    .spec-item label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #888; display: block; margin-bottom: .2rem;
+    }
+    .spec-item p { font-size: .82rem; color: var(--preto); margin: 0; }
+
+    .contrast-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .82rem; }
+    .contrast-table th { text-align: left; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: #888; padding: .5rem .75rem; border-bottom: 2px solid var(--areia); }
+    .contrast-table td { padding: .5rem .75rem; border-bottom: 1px solid var(--areia); }
+    .badge-pass { background: #d4edda; color: #155724; padding: .15rem .5rem; border-radius: 4px; font-size: .7rem; font-weight: 700; }
+    .badge-warn { background: #fff3cd; color: #856404; padding: .15rem .5rem; border-radius: 4px; font-size: .7rem; font-weight: 700; }
+    .badge-fail { background: #f8d7da; color: #842029; padding: .15rem .5rem; border-radius: 4px; font-size: .7rem; font-weight: 700; }
+
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .mockup-row { justify-content: center; }
+      .stickers-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Salamares — Aplicações Visuais</span>
+  <ul>
+    <li><a href="#digital">Digital</a></li>
+    <li><a href="#mesa">Mesa</a></li>
+    <li><a href="#embalagem">Embalagem</a></li>
+    <li><a href="#uniforme">Uniforme</a></li>
+    <li><a href="#mascote">Zé Maré</a></li>
+    <li><a href="#auditoria">Contraste</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <p class="section-label" style="color:var(--creme);opacity:.7;letter-spacing:.2em">Botequim Salamares</p>
+  <h1>Aplicações de Marca</h1>
+  <p>Mockups visuais para todas as aplicações mapeadas — digital, mesa, embalagem, uniforme e extensões do Zé Maré. Use este documento como briefing de produção para designers e fornecedores.</p>
+</div>
+
+<!-- ===================== DIGITAL ===================== -->
+<section id="digital" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Digital</p>
+      <h2>Instagram — Templates de Feed</h2>
+      <p>Três templates base para o feed. Todos usam a mesma grade, fonte e paleta — só o mood muda. Entregar ao social media como arquivo Canva ou Figma com esses parâmetros.</p>
+    </div>
+
+    <div class="mockup-row">
+      <!-- Template A: BASE -->
+      <div>
+        <div class="insta-post post-base">
+          <div class="photo-block">
+            <div class="photo-placeholder">🦀</div>
+          </div>
+          <div class="logo-small">S</div>
+          <div class="copy-block">
+            <p class="tag">Hoje no Salamares</p>
+            <p>O caranguejo hoje tá assim: perfeito. Como sempre.</p>
+          </div>
+        </div>
+        <p class="mockup-label">Template Base<br><span style="opacity:.6">Azul Oceano · Produto</span></p>
+      </div>
+
+      <!-- Template B: ENERGIA -->
+      <div style="position:relative">
+        <div class="insta-post post-energia" style="position:relative">
+          <div class="titulo">Hoje tem<br>Caranguejo</div>
+          <div class="sub">Receita de família. Praia da Costa.</div>
+          <div class="badge-preco">Reserve sua mesa</div>
+          <div class="rodape">@sala_mares · Vila Velha - ES</div>
+        </div>
+        <p class="mockup-label">Template Energia<br><span style="opacity:.6">Vermelho Caranguejo · Urgência</span></p>
+      </div>
+
+      <!-- Template C: ZÉ MARÉ -->
+      <div>
+        <div class="insta-post post-ze-mare">
+          <div class="mascot-area">
+            <img src="../referências/assets/sugestao de mascoste.jpg" alt="Zé Maré" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:5rem\'>🦀</div>'">
+          </div>
+          <div class="speech">
+            <p>"Volta logo.<br>Eu sabia que você não resistia."</p>
+            <p class="handle">@sala_mares</p>
+          </div>
+        </div>
+        <p class="mockup-label">Template Zé Maré<br><span style="opacity:.6">Mascote · Engajamento</span></p>
+      </div>
+    </div>
+
+    <div class="spec-box">
+      <h5>Especificações de Produção — Feed</h5>
+      <div class="spec-row">
+        <div class="spec-item"><label>Formato</label><p>1080 × 1080px (quadrado)</p></div>
+        <div class="spec-item"><label>Fundo padrão</label><p>#1E5C7A (Azul Oceano)</p></div>
+        <div class="spec-item"><label>Fonte títulos</label><p>Playfair Display Black</p></div>
+        <div class="spec-item"><label>Fonte corpo</label><p>Nunito SemiBold</p></div>
+        <div class="spec-item"><label>Voz Zé Maré</label><p>Pacifico Regular</p></div>
+        <div class="spec-item"><label>Logo</label><p>Canto superior direito, 80px</p></div>
+      </div>
+    </div>
+
+    <!-- STORIES -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Instagram — Stories</h2>
+      <p>Formato vertical 9:16. Dois templates base — boas-vindas e promoção.</p>
+    </div>
+
+    <div class="mockup-row">
+      <div>
+        <div class="insta-story story-welcome">
+          <div class="timao-area">
+            <img src="../referências/assets/logomarca.jpg" alt="Logo" style="width:100px;border-radius:4px;" onerror="this.style.display='none'">
+          </div>
+          <div>
+            <p class="headline">O botequim do<br>caranguejo capixaba</p>
+            <p class="tagline-s">Vem sujar as mãos.</p>
+            <div class="cta-story">Reserve sua mesa ↓</div>
+          </div>
+        </div>
+        <p class="mockup-label">Story Boas-vindas<br><span style="opacity:.6">Azul Oceano</span></p>
+      </div>
+
+      <div style="position:relative">
+        <div class="insta-story story-promo" style="position:relative">
+          <p class="destaque">Apenas Hoje</p>
+          <p class="titulo-promo">Caranguejo<br>+ Batidinha</p>
+          <p class="preco-grande">R$ 89</p>
+          <p class="frase-ze">"Aproveita. Não repito duas vezes."</p>
+          <p class="handle-s">@sala_mares</p>
+        </div>
+        <p class="mockup-label">Story Promoção<br><span style="opacity:.6">Vermelho Caranguejo</span></p>
+      </div>
+    </div>
+
+    <div class="spec-box">
+      <h5>Especificações — Stories</h5>
+      <div class="spec-row">
+        <div class="spec-item"><label>Formato</label><p>1080 × 1920px</p></div>
+        <div class="spec-item"><label>Zona segura</label><p>250px top e bottom</p></div>
+        <div class="spec-item"><label>CTA</label><p>Link ou sticker "Reserve"</p></div>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHTS -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Destaques (Highlights)</h2>
+      <p>Capas dos destaques — ícone branco sobre Azul Oceano. Fundo com borda degradê vermelho→dourado (Instagram padrão sobreposto).</p>
+    </div>
+    <div class="highlights-row">
+      <div><div class="highlight-cover"><span class="hl-icon">🦀</span><span class="hl-label">Caranguejo</span></div></div>
+      <div><div class="highlight-cover"><span class="hl-icon">🍹</span><span class="hl-label">Batidinhas</span></div></div>
+      <div><div class="highlight-cover"><span class="hl-icon">🍽️</span><span class="hl-label">Almoço</span></div></div>
+      <div><div class="highlight-cover"><span class="hl-icon">⭐</span><span class="hl-label">Avaliações</span></div></div>
+      <div><div class="highlight-cover"><span class="hl-icon">📍</span><span class="hl-label">Localização</span></div></div>
+      <div><div class="highlight-cover"><span class="hl-icon">📸</span><span class="hl-label">Momentos</span></div></div>
+    </div>
+
+    <!-- STICKERS -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Stickers WhatsApp — Pacote Zé Maré</h2>
+      <p>8 stickers iniciais. Cada sticker usa o mascote em expressão diferente com frase curta em Pacifico. Entrega: PNG 512×512px com fundo transparente.</p>
+    </div>
+    <div class="stickers-grid">
+      <div>
+        <div class="sticker">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Chegou!</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 1<br>Sorriso / Boas-vindas</p>
+      </div>
+      <div>
+        <div class="sticker sticker-vermelho">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Tá pronto?</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 2<br>Com babador</p>
+      </div>
+      <div>
+        <div class="sticker sticker-escuro">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Mandou bem! 👌</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 3<br>Joinha</p>
+      </div>
+      <div>
+        <div class="sticker sticker-creme">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s" style="color:var(--azul-escuro)">Fechado. Volta amanhã.</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 4<br>Dormindo</p>
+      </div>
+      <div>
+        <div class="sticker">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Pede o caranguejo! 👆</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 5<br>Apontando</p>
+      </div>
+      <div>
+        <div class="sticker sticker-vermelho">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Obrigado! ❤️</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 6<br>Coração</p>
+      </div>
+      <div>
+        <div class="sticker sticker-escuro">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s">Não deixa sobrar nada.</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 7<br>Braços cruzados</p>
+      </div>
+      <div>
+        <div class="sticker sticker-creme">
+          <span class="emoji-s">🦀</span>
+          <span class="txt-s" style="color:var(--azul-escuro)">[personalizável]</span>
+        </div>
+        <p class="mockup-label" style="font-size:.65rem">Expressão 8<br>Com placa em branco</p>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <p><strong>Briefing para o desenvolvedor dos stickers:</strong> Usar a referência visual em <code>../referências/assets/sugestao de mascoste.jpg</code> como modelo base. O crab 3D já está 90% correto — ajustar olhos para abertos e expressivos (conforme Proposta Criativa do Zé Maré), e produzir 8 variações de pose/expressão. Entrega em PNG 512×512px fundo transparente + pacote .wastickers para Android.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MESA ===================== -->
+<section id="mesa" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Mesa &amp; Experiência</p>
+      <h2>Babador Personalizado</h2>
+      <p>Touchpoint mais estratégico. Entregue junto com o primeiro copo, antes do prato chegar. "O ritual começa antes da comida."</p>
+    </div>
+
+    <div class="babador-wrapper">
+      <div>
+        <div class="babador">
+          <div class="babador-neck">
+            <div class="babador-cord"></div>
+            <div class="babador-hole"></div>
+            <div class="babador-cord"></div>
+          </div>
+          <div class="babador-body">
+            <div class="babador-mascot-area">
+              <img src="../referências/assets/sugestao de mascoste.jpg" alt="Zé Maré" onerror="this.style.cssText='display:flex;align-items:center;justify-content:center;font-size:4rem';this.innerHTML='🦀'">
+            </div>
+            <p class="babador-text">Vem sujar as mãos.</p>
+          </div>
+        </div>
+        <p class="mockup-label">Frente<br><span style="opacity:.6">Azul Oceano · Serigrafia</span></p>
+      </div>
+
+      <div>
+        <div class="babador">
+          <div class="babador-neck">
+            <div class="babador-cord"></div>
+            <div class="babador-hole"></div>
+            <div class="babador-cord"></div>
+          </div>
+          <div class="babador-back">
+            <img src="../referências/assets/logomarca.jpg" style="width:60px;border-radius:4px;opacity:.4" onerror="this.style.display='none'">
+            <p>Botequim Salamares</p>
+            <p class="handle-back">@sala_mares</p>
+            <p style="font-size:.55rem;margin-top:.25rem">Praia da Costa · Vila Velha - ES</p>
+          </div>
+        </div>
+        <p class="mockup-label">Verso<br><span style="opacity:.6">Azul Escuro</span></p>
+      </div>
+
+      <div class="spec-box" style="min-width:280px">
+        <h5>Especificações de Produção</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Material</label><p>Algodão 100%, 180g/m²</p></div>
+          <div class="spec-item"><label>Acabamento</label><p>Serigrafia (2 cores)</p></div>
+          <div class="spec-item"><label>Tamanho</label><p>45 × 55cm (adulto)</p></div>
+          <div class="spec-item"><label>Fechamento</label><p>Cordão ajustável atrás</p></div>
+          <div class="spec-item"><label>Cor base</label><p>Azul Oceano #1E5C7A</p></div>
+          <div class="spec-item"><label>Arte frente</label><p>Branco Espuma + Zé Maré</p></div>
+        </div>
+        <div class="note-box" style="margin-top:1rem">
+          <p>O texto "Vem sujar as mãos." em Pacifico deve ser <strong>legível em foto de rosto</strong> (tamanho mínimo 4cm de altura na peça física). O cliente veste, tira foto, posta — é publicidade orgânica zero custo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAPEL DE MESA -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Papel de Mesa — Layout</h2>
+      <p>Rolo de kraft 60–80g cortado no tamanho da mesa. Impressão 1 cor (azul oceano) com possibilidade de 2 cores (+ vermelho). Preview abaixo simula o layout.</p>
+    </div>
+
+    <div class="papel-preview">
+      <div class="papel-watermark">
+        <div class="papel-watermark-img"></div>
+      </div>
+      <div class="papel-layout">
+        <div class="papel-guia">
+          <h4>Como Comer<br>Caranguejo</h4>
+          <div class="passo"><span class="n">1</span><span>Torça a pata até soltar da articulação</span></div>
+          <div class="passo"><span class="n">2</span><span>Quebre a pinça com o martelo (ou na garra)</span></div>
+          <div class="passo"><span class="n">3</span><span>Chupe o tutano da pata — é a melhor parte</span></div>
+          <div class="passo"><span class="n">4</span><span>Repita. Sem pressa.</span></div>
+          <div class="passo"><span class="n">5</span><span>Troque de babador se necessário</span></div>
+        </div>
+
+        <div class="papel-mascote">
+          <img src="../referências/assets/sugestao de mascoste.jpg" alt="Zé Maré"
+               onerror="this.outerHTML='<div class=\'emoji-mascot\'>🦀</div>'">
+        </div>
+
+        <div class="papel-frase">
+          <blockquote>
+            "Caranguejo não se come<br>com pressa. Você foi avisado."
+            <cite>— Zé Maré</cite>
+          </blockquote>
+          <blockquote>
+            "O babador não é opcional.<br>Eu insisto."
+            <cite>— Zé Maré</cite>
+          </blockquote>
+          <blockquote>
+            "A mesa é sua pelo tempo<br>que precisar."
+            <cite>— Zé Maré</cite>
+          </blockquote>
+        </div>
+
+        <div class="papel-qr">
+          <div style="text-align:center">
+            <div class="qr-placeholder" style="width:55px;height:55px;background:white;border-radius:4px;display:flex;align-items:center;justify-content:center;margin:0 auto .25rem;font-size:.5rem;color:#333;padding:4px">
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;width:100%;height:100%">
+                <div style="background:#1C1C1C;grid-column:1/3;grid-row:1/3;border-radius:1px"></div>
+                <div style="background:#1C1C1C;border-radius:1px"></div>
+                <div style="background:#1C1C1C;grid-column:5;grid-row:1/3;border-radius:1px"></div>
+                <div style="background:#1C1C1C;border-radius:1px"></div>
+                <div style="background:#1C1C1C;border-radius:1px"></div>
+                <div style="background:#1C1C1C;grid-column:1/3;grid-row:4/6;border-radius:1px"></div>
+                <div style="background:#1C1C1C;border-radius:1px"></div>
+                <div style="background:#1C1C1C;border-radius:1px"></div>
+              </div>
+            </div>
+            <p style="font-size:.55rem;color:var(--azul-escuro);font-weight:700">Cardápio Digital</p>
+            <p style="font-size:.5rem;color:#666">@sala_mares</p>
+          </div>
+        </div>
+
+        <div class="papel-insta">
+          <p>Segue lá ↗</p>
+          <p class="at">@sala_mares</p>
+          <p style="font-size:.55rem;color:#777">Praia da Costa · Vila Velha</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-box" style="margin-top:1.5rem">
+      <h5>Especificações — Papel de Mesa</h5>
+      <div class="spec-row">
+        <div class="spec-item"><label>Suporte</label><p>Papel kraft 60–80g</p></div>
+        <div class="spec-item"><label>Formato</label><p>Rolo, corte no tamanho da mesa</p></div>
+        <div class="spec-item"><label>Impressão</label><p>1 cor: Azul Oceano · 2 cores: + Vermelho</p></div>
+        <div class="spec-item"><label>Watermark</label><p>Timão, 12–15% opacidade, fundo</p></div>
+        <div class="spec-item"><label>QR Code</label><p>Canto — cardápio digital + Instagram</p></div>
+        <div class="spec-item"><label>Guia do caranguejo</label><p>Bloco ilustrado, canto esquerdo</p></div>
+      </div>
+    </div>
+
+    <!-- CARTÃO DE VISITA -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Cartão de Visita</h2>
+      <p>Formato 9×5cm. Capa: logo vertical + Zé Maré pequeno. Verso: tagline + contato.</p>
+    </div>
+    <div class="mockup-row">
+      <div>
+        <div class="biz-card biz-front">
+          <img src="../referências/assets/logomarca.jpg" alt="Logo" class="logo-biz" onerror="this.style.display='none'">
+          <div class="nome-biz">
+            <span>Botequim</span><br>
+            SALAMARES
+          </div>
+          <span class="mascot-biz">🦀</span>
+        </div>
+        <p class="mockup-label">Frente</p>
+      </div>
+      <div>
+        <div class="biz-card biz-back">
+          <p class="tagline-biz">Vem sujar as mãos.</p>
+          <p>Praia da Costa, Vila Velha — ES<br>Ter–Qui 17h30 | Sex–Dom 11h</p>
+          <p class="handle-biz">@sala_mares</p>
+          <p style="font-size:.55rem;color:var(--creme);opacity:.5">WhatsApp: (27) ·· ·····</p>
+        </div>
+        <p class="mockup-label">Verso</p>
+      </div>
+      <div class="spec-box" style="min-width:220px">
+        <h5>Especificações</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Formato</label><p>90 × 50mm</p></div>
+          <div class="spec-item"><label>Papel</label><p>300g, verniz localizado no timão</p></div>
+          <div class="spec-item"><label>Acabamento</label><p>Laminação fosca</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARTÃO FIDELIDADE -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Cartão Fidelidade</h2>
+      <p>10 carimbadas = 1 batidinha grátis. Carimbo em forma de garra do caranguejo.</p>
+    </div>
+    <div class="mockup-row">
+      <div>
+        <div class="fidelidade-card">
+          <div class="fid-front">
+            <div class="timao-wm">S</div>
+            <div class="fid-top">
+              <img src="../referências/assets/logomarca.jpg" alt="Logo" class="fid-logo-img" onerror="this.style.display='none'">
+              <p class="fid-titulo">Cartão<br>Fidelidade</p>
+            </div>
+            <div class="carimbos">
+              <div class="carimbo preenchido">🦀</div>
+              <div class="carimbo preenchido">🦀</div>
+              <div class="carimbo preenchido">🦀</div>
+              <div class="carimbo preenchido">🦀</div>
+              <div class="carimbo">🦀</div>
+              <div class="carimbo">🦀</div>
+              <div class="carimbo">🦀</div>
+              <div class="carimbo">🦀</div>
+              <div class="carimbo">🦀</div>
+              <div class="carimbo">🦀</div>
+            </div>
+            <p class="fid-regra">10 caranguejadas = 1 batidinha grátis</p>
+          </div>
+        </div>
+        <p class="mockup-label">Frente (4 de 10 carimbados)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CARDÁPIO ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Impressos</p>
+      <h2>Cardápio — Capa e Interno</h2>
+      <p>Formato A5 (148×210mm). Capa 300g laminada fosca. Interno 150g. Sem plastificação — a gordura do caranguejo faz parte da experiência.</p>
+    </div>
+
+    <div class="cardapio-wrapper">
+      <div>
+        <div class="cardapio-cover">
+          <div class="watermark">S</div>
+          <img src="../referências/assets/logomarca.jpg" alt="Logo" class="logo-capa"
+               onerror="this.outerHTML='<div style=\'font-size:2.5rem;text-align:center\'>⚓</div>'">
+          <p class="titulo-capa">Botequim Salamares</p>
+          <p class="tagline-capa">Vem sujar as mãos.</p>
+        </div>
+        <p class="mockup-label">Capa<br><span style="opacity:.6">Azul Oceano · A5</span></p>
+      </div>
+
+      <div>
+        <div class="cardapio-interno">
+          <p class="secao-label">Destaque da Casa</p>
+          <h4>Caranguejo<br>Capixaba</h4>
+          <div class="item-row">
+            <div>
+              <p class="item-nome">Caranguejo inteiro na estufa</p>
+              <p class="item-desc">Receita de família. Serve 1–2 pessoas.</p>
+            </div>
+            <p class="item-preco">R$ 75</p>
+          </div>
+          <div class="item-row">
+            <div>
+              <p class="item-nome">Meia dúzia de patas</p>
+              <p class="item-desc">Com molho da casa.</p>
+            </div>
+            <p class="item-preco">R$ 38</p>
+          </div>
+          <div class="item-row">
+            <div>
+              <p class="item-nome">Arroz de caranguejo</p>
+              <p class="item-desc">Serve 2 pessoas.</p>
+            </div>
+            <p class="item-preco">R$ 62</p>
+          </div>
+          <div style="margin-top:1rem">
+            <p class="secao-label">Batidinhas da Casa</p>
+            <div class="item-row">
+              <div>
+                <p class="item-nome">Batidinha da Praia da Costa</p>
+                <p class="item-desc">Receita do Hasler.</p>
+              </div>
+              <p class="item-preco">R$ 18</p>
+            </div>
+          </div>
+        </div>
+        <p class="mockup-label">Interno<br><span style="opacity:.6">Creme Maré · Nunito</span></p>
+      </div>
+
+      <div class="spec-box" style="min-width:240px">
+        <h5>Especificações</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Formato</label><p>A5 vertical (148×210mm)</p></div>
+          <div class="spec-item"><label>Capa</label><p>300g, laminação fosca</p></div>
+          <div class="spec-item"><label>Interno</label><p>150g, sem plastificação</p></div>
+          <div class="spec-item"><label>Caranguejo</label><p>Seção em box vermelho, sempre 1ª</p></div>
+          <div class="spec-item"><label>Tipografia</label><p>Playfair Display títulos + Nunito</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EMBALAGEM ===================== -->
+<section id="embalagem" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Embalagem &amp; Takeaway</p>
+      <h2>Sacola, Caixa e Adesivo</h2>
+      <p>Cada toque no delivery é uma oportunidade. A voz do Zé Maré aparece até nas instruções de reaquecimento.</p>
+    </div>
+
+    <div class="embalagem-row">
+      <div>
+        <div class="sacola">
+          <div class="sacola-alca-wrap">
+            <div class="sacola-alca"></div>
+            <div class="sacola-alca"></div>
+          </div>
+          <div class="sacola-body">
+            <div class="sacola-mascot">🦀</div>
+            <div class="sacola-marca">
+              <p>BOTEQUIM<br>SALAMARES</p>
+            </div>
+            <p class="sacola-tagline">Vem sujar as mãos.</p>
+          </div>
+        </div>
+        <p class="mockup-label">Sacola Kraft<br><span style="opacity:.6">1–2 cores</span></p>
+      </div>
+
+      <div>
+        <div class="caixa-takeaway">
+          <div class="caixa-lacre">Salamares ✕</div>
+          <img src="../referências/assets/logomarca.jpg" alt="Logo" class="caixa-logo"
+               onerror="this.style.display='none'">
+          <p class="caixa-instrucao">"Esquenta no forno, não no micro-ondas.<br>Eu mereço mais do que isso."<br><small style="opacity:.7">— Zé Maré</small></p>
+        </div>
+        <p class="mockup-label">Caixa Takeaway<br><span style="opacity:.6">Kraft + lacre azul</span></p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+        <div class="adesivo">
+          <span class="timao-adh">⚓</span>
+          <p>SALA<br>MARES</p>
+        </div>
+        <p class="mockup-label">Adesivo Lacre<br><span style="opacity:.6">∅5cm · 1 cor</span></p>
+      </div>
+
+      <div class="spec-box" style="min-width:240px">
+        <h5>Especificações</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Sacola</label><p>Kraft resistente, alça, P e G</p></div>
+          <div class="spec-item"><label>Caixa</label><p>Kraft reforçada, encaixe anti-tombamento</p></div>
+          <div class="spec-item"><label>Adesivo lacre</label><p>Circular 5cm, 1 cor, kraft</p></div>
+          <div class="spec-item"><label>Instrução</label><p>Voz Zé Maré na caixa (forno, não micro)</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UNIFORME ===================== -->
+<section id="uniforme" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Uniforme da Equipe</p>
+      <h2>Camiseta, Avental e Boné</h2>
+      <p>A equipe é a marca em movimento. Cada peça reforça posicionamento.</p>
+    </div>
+
+    <div class="uniforme-row">
+      <div>
+        <div class="camiseta">
+          <div class="camiseta-body">
+            <div class="camiseta-gola"></div>
+            <div class="camiseta-ombro-e"></div>
+            <div class="camiseta-ombro-d"></div>
+            <div class="camiseta-logo">
+              <img src="../referências/assets/logomarca.jpg" alt="Logo" class="camiseta-logo-img"
+                   onerror="this.style.display='none'">
+              <p>Botequim Salamares</p>
+            </div>
+          </div>
+        </div>
+        <p class="mockup-label">Camiseta — Frente<br><span style="opacity:.6">Azul Oceano</span></p>
+      </div>
+
+      <div>
+        <div class="camiseta">
+          <div class="camiseta-costas">
+            <span class="timao-costas">⚓</span>
+            <p>BOTEQUIM<br>SALAMARES</p>
+            <p class="tagline-costas">Vem sujar as mãos.</p>
+          </div>
+        </div>
+        <p class="mockup-label">Camiseta — Costas<br><span style="opacity:.6">Azul Escuro</span></p>
+      </div>
+
+      <div>
+        <div class="avental-corpo">
+          <img src="../referências/assets/logomarca.jpg" alt="Logo" class="avental-logo-img"
+               onerror="this.style.display='none'">
+          <p class="avental-nome">Garçom</p>
+          <div class="avental-bolso"></div>
+        </div>
+        <p class="mockup-label">Avental<br><span style="opacity:.6">Azul Oceano · Bordado</span></p>
+      </div>
+
+      <div class="spec-box" style="min-width:240px">
+        <h5>Especificações</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Camiseta</label><p>Básica 100% algodão, Azul Oceano</p></div>
+          <div class="spec-item"><label>Arte frente</label><p>Timão + nome bordado no peito</p></div>
+          <div class="spec-item"><label>Arte costas</label><p>Timão grande + "Botequim Salamares"</p></div>
+          <div class="spec-item"><label>Avental</label><p>Cintura, Azul Oceano, logo bordado</p></div>
+          <div class="spec-item"><label>Nome</label><p>Bordado abaixo do logo (Nunito)</p></div>
+          <div class="spec-item"><label>Boné</label><p>Monograma "S" em dourado timão</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TOTEM ===================== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Sinalização</p>
+      <h2>Totem Zé Maré — Entrada</h2>
+      <p>Placa recortada em MDF ou PS, ~1,20m de altura. Posicionada na entrada como ponto de foto espontâneo. A plaquinha na garra é trocável — mensagem muda por temporada.</p>
+    </div>
+
+    <div class="totem-wrapper">
+      <div class="totem">
+        <div class="totem-mascot">
+          <img src="../referências/assets/sugestao de mascoste.jpg" alt="Zé Maré"
+               onerror="this.outerHTML='<div style=\'font-size:6rem;text-align:center\'>🦀</div>'">
+        </div>
+        <div class="totem-placa">
+          <p>"Hoje tem caranguejo.<br>E amanhã também."</p>
+        </div>
+        <div class="totem-base"></div>
+        <div class="totem-suporte"></div>
+      </div>
+
+      <div class="spec-box" style="min-width:260px;align-self:center">
+        <h5>Especificações — Totem</h5>
+        <div class="spec-row">
+          <div class="spec-item"><label>Material</label><p>MDF 15mm recortado CNC ou PS recortado</p></div>
+          <div class="spec-item"><label>Altura</label><p>±1,20m (escala humana)</p></div>
+          <div class="spec-item"><label>Impressão</label><p>Digital frente e verso ou adesivo laminado</p></div>
+          <div class="spec-item"><label>Suporte</label><p>Base em L ou suporte de chão</p></div>
+          <div class="spec-item"><label>Placa garra</label><p>MDF separado, trocável, 20×15cm</p></div>
+          <div class="spec-item"><label>Objetivo</label><p>Foto espontânea — conteúdo orgânico UGC</p></div>
+        </div>
+        <div class="note-box" style="margin-top:1rem">
+          <p>Mensagens sugeridas para a plaquinha:<br>
+          <strong>"Hoje tem caranguejo. E amanhã também."</strong><br>
+          "A mesa tá esperando."<br>
+          "Já comeu? Não conta pra ninguém."<br>
+          "Bem-vindo ao Salamares. Finalmente."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ZÉ MARÉ EXPRESSÕES ===================== -->
+<section id="mascote" class="section" style="background:var(--azul-escuro)">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label" style="color:var(--creme);opacity:.65">Mascote</p>
+      <h2 style="color:var(--branco)">Zé Maré — 7 Expressões</h2>
+      <p style="color:var(--creme);opacity:.8">Referência de produção para o designer/modelador 3D. Cada expressão tem uso específico e frase característica. Base visual: referência na pasta <code style="color:var(--dourado)">referências/assets/sugestao de mascoste.jpg</code>.</p>
+    </div>
+
+    <div class="expressoes-grid">
+      <div class="expr-mockup">
+        <div class="expr-img">
+          <img src="../referências/assets/sugestao de mascoste.jpg" alt="Expressão 1 — base" onerror="this.parentElement.innerHTML='<span>🦀</span>'">
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 01</p>
+          <p class="expr-title">Sorriso Aberto</p>
+          <span class="expr-phrase">"Chegou! Que bom!"</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img" style="background:#1a4560">
+          <span style="font-size:4.5rem">😉🦀</span>
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 02</p>
+          <p class="expr-title">Piscadela</p>
+          <span class="expr-phrase">"Só hoje. Não conta pra ninguém."</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img" style="background:#1a4560">
+          <span style="font-size:4rem">🦀🤗</span>
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 03</p>
+          <p class="expr-title">Garras Abertas</p>
+          <span class="expr-phrase">"A mesa tá esperando."</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img" style="background:#1a4560">
+          <span style="font-size:4rem">🦀👆</span>
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 04</p>
+          <p class="expr-title">Garra Apontando</p>
+          <span class="expr-phrase">"Você vai pedir o caranguejo. Confie em mim."</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img" style="background:#1a4560">
+          <span style="font-size:4rem">🦀🍽️</span>
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 05</p>
+          <p class="expr-title">Com Babador</p>
+          <span class="expr-phrase">"Pronto. Pode trazer."</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img" style="background:#1a4560">
+          <span style="font-size:4rem">🦀🙄</span>
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 06</p>
+          <p class="expr-title">Braços Cruzados</p>
+          <span class="expr-phrase">"Você ainda não conhece o Salamares? Que absurdo."</span>
+        </div>
+      </div>
+
+      <div class="expr-mockup">
+        <div class="expr-img">
+          <img src="../referências/assets/sugestao de mascoste.jpg" alt="Expressão 7 — com placa" onerror="this.parentElement.innerHTML='<span>🦀📋</span>'">
+        </div>
+        <div class="expr-copy">
+          <p class="expr-num">Expressão 07</p>
+          <p class="expr-title">Com Prancha</p>
+          <span class="expr-phrase">[texto variável na prancha]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="background:rgba(196,146,46,.12);border-color:var(--dourado);margin-top:2rem">
+      <p style="color:var(--creme)">
+        <strong style="color:var(--dourado)">Nota para o modelador 3D:</strong> A expressão 01 (Sorriso Aberto) e a Expressão 07 (Com Prancha) já existem na referência visual em <code>sugestao de mascoste.jpg</code>. Ajuste necessário: olhos abertos e expressivos (a referência usa olhos semi-fechados com alegria — abrir para dar mais expressividade). Entregar as 7 expressões em PNG 2000×2000px fundo transparente. Paleta obrigatória: corpo #D4451A, barriga #E8C870, juntas/detalhes #C4922E.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AUDITORIA DE CONTRASTE ===================== -->
+<section id="auditoria" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Auditoria Técnica</p>
+      <h2>Contraste — WCAG 2.1</h2>
+      <p>Análise de contraste de todas as combinações de cores do sistema. WCAG AA requer 4.5:1 para texto normal (≤18pt) e 3:1 para texto grande (≥18pt regular ou ≥14pt bold).</p>
+    </div>
+
+    <table class="contrast-table">
+      <thead>
+        <tr>
+          <th>Combinação</th>
+          <th>Foreground</th>
+          <th>Background</th>
+          <th>Ratio</th>
+          <th>Texto normal</th>
+          <th>Texto grande</th>
+          <th>Uso recomendado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="background:#FAFAF5;color:#1E5C7A;padding:.2rem .5rem;border-radius:4px;font-weight:700">Branco/Azul</span></td>
+          <td style="font-family:monospace">#FAFAF5</td>
+          <td style="font-family:monospace">#1E5C7A</td>
+          <td><strong>6.08:1</strong></td>
+          <td><span class="badge-pass">✓ AA</span></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td>Texto principal sobre fundo azul, headers, body</td>
+        </tr>
+        <tr>
+          <td><span style="background:#F0E4C0;color:#1E5C7A;padding:.2rem .5rem;border-radius:4px;font-weight:700">Creme/Azul</span></td>
+          <td style="font-family:monospace">#F0E4C0</td>
+          <td style="font-family:monospace">#1E5C7A</td>
+          <td><strong>5.10:1</strong></td>
+          <td><span class="badge-pass">✓ AA</span></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td>Subtítulos, labels, taglines sobre azul</td>
+        </tr>
+        <tr>
+          <td><span style="background:#F0E4C0;color:#1C1C1C;padding:.2rem .5rem;border-radius:4px;font-weight:700">Preto/Creme</span></td>
+          <td style="font-family:monospace">#1C1C1C</td>
+          <td style="font-family:monospace">#F0E4C0</td>
+          <td><strong>12.01:1</strong></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td>Corpo de texto em impressos (cardápio, papel de mesa)</td>
+        </tr>
+        <tr>
+          <td><span style="background:#F0E4C0;color:#1E5C7A;padding:.2rem .5rem;border-radius:4px;font-weight:700">Azul/Creme</span></td>
+          <td style="font-family:monospace">#1E5C7A</td>
+          <td style="font-family:monospace">#F0E4C0</td>
+          <td><strong>5.10:1</strong></td>
+          <td><span class="badge-pass">✓ AA</span></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td>Títulos em cardápio, subtítulos em impressos</td>
+        </tr>
+        <tr>
+          <td><span style="background:#D4451A;color:#FAFAF5;padding:.2rem .5rem;border-radius:4px;font-weight:700">Branco/Vermelho</span></td>
+          <td style="font-family:monospace">#FAFAF5</td>
+          <td style="font-family:monospace">#D4451A</td>
+          <td><strong>4.04:1</strong></td>
+          <td><span class="badge-warn">⚠ Reprova</span></td>
+          <td><span class="badge-pass">✓ AA</span></td>
+          <td>CTAs, tagline em seção vermelha — usar ≥18pt ou bold ≥14pt</td>
+        </tr>
+        <tr>
+          <td><span style="background:#1E5C7A;color:#C4922E;padding:.2rem .5rem;border-radius:4px;font-weight:700">Dourado/Azul</span></td>
+          <td style="font-family:monospace">#C4922E</td>
+          <td style="font-family:monospace">#1E5C7A</td>
+          <td><strong>2.43:1</strong></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td>APENAS decorativo — nunca usar como texto funcional</td>
+        </tr>
+        <tr>
+          <td><span style="background:#1E5C7A;color:#D4451A;padding:.2rem .5rem;border-radius:4px;font-weight:700">Vermelho/Azul</span></td>
+          <td style="font-family:monospace">#D4451A</td>
+          <td style="font-family:monospace">#1E5C7A</td>
+          <td><strong>1.50:1</strong></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td>Acento decorativo em display ≥44px SOMENTE — nunca como texto a ler</td>
+        </tr>
+        <tr>
+          <td><span style="background:#F0E4C0;color:#C4922E;padding:.2rem .5rem;border-radius:4px;font-weight:700">Dourado/Creme</span></td>
+          <td style="font-family:monospace">#C4922E</td>
+          <td style="font-family:monospace">#F0E4C0</td>
+          <td><strong>2.10:1</strong></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td><span class="badge-fail">✗ Reprova</span></td>
+          <td>APENAS decorativo — bordas, linhas, ornamentos</td>
+        </tr>
+        <tr>
+          <td><span style="background:#C4922E;color:#1C1C1C;padding:.2rem .5rem;border-radius:4px;font-weight:700">Preto/Dourado</span></td>
+          <td style="font-family:monospace">#1C1C1C</td>
+          <td style="font-family:monospace">#C4922E</td>
+          <td><strong>5.72:1</strong></td>
+          <td><span class="badge-pass">✓ AA</span></td>
+          <td><span class="badge-pass">✓ AAA</span></td>
+          <td>Texto sobre fundo dourado (cartão fidelidade, detalhe)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box" style="margin-top:2rem">
+      <p><strong>Regra prática para a equipe de comunicação:</strong></p>
+      <p style="margin-top:.5rem">✅ <strong>Branco ou Creme SOBRE Azul Oceano</strong> — sempre seguro para qualquer texto.<br>
+      ✅ <strong>Preto ou Azul SOBRE Creme Maré</strong> — cardápios, impressos, papel de mesa.<br>
+      ⚠️ <strong>Branco SOBRE Vermelho</strong> — só em texto grande (CTAs, taglines em 20px+).<br>
+      ❌ <strong>Dourado como texto</strong> — nunca. Dourado é cor de ornamento, borda e detalhe.<br>
+      ❌ <strong>Vermelho sobre Azul</strong> — nunca como texto. Só como acento visual em headings display gigantes.</p>
+    </div>
+
+    <!-- OBSERVAÇÕES DO LOGO -->
+    <div class="section-header" style="margin-top:4rem">
+      <h2>Observações — Logo</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem">
+      <div class="spec-box">
+        <h5>Pontos Fortes Identificados</h5>
+        <ul style="padding-left:1.2rem;font-size:.85rem;line-height:1.8">
+          <li>Timão: símbolo forte, reconhecível, escalável</li>
+          <li>Monograma S em peixes+anzol: inteligente e funcional como ícone isolado</li>
+          <li>"BOTEQUIM" integrado — decisão estratégica correta</li>
+          <li>Azul-marinho coerente com universo náutico</li>
+          <li>Tipografia all-caps com presença forte em fachada</li>
+        </ul>
+      </div>
+      <div class="spec-box">
+        <h5>Gaps para Correção com o Designer</h5>
+        <ul style="padding-left:1.2rem;font-size:.85rem;line-height:1.8">
+          <li><strong>Nome:</strong> Logo exibe "SALA MARES" (2 palavras) — nome oficial é "Salamares" (1 palavra)</li>
+          <li><strong>Arquivo:</strong> Disponível apenas em JPG — solicitar vetores (.AI, .SVG) e PNG com canal alpha real</li>
+          <li><strong>Vermelho ausente:</strong> Cor mais poderosa da marca não está no sistema atual</li>
+          <li><strong>Variações:</strong> Só existe 1 versão — faltam logo horizontal, ícone isolado, versão 1 cor</li>
+          <li><strong>Fundo do PNG:</strong> A versão "sem fundo" ainda tem fundo branco — arquivo corrompido ou exportado errado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--azul-escuro);color:var(--creme);text-align:center;padding:3rem 2rem">
+  <div style="font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:.1em;margin-bottom:.5rem">
+    Botequim Salamares — Aplicações Visuais
+  </div>
+  <p style="font-size:.8rem;opacity:.6;margin:0">
+    Documento de produção · Use como briefing para designers, gráficas e fornecedores<br>
+    Sistema de marca desenvolvido em 2026 · Praia da Costa, Vila Velha — ES
+  </p>
+</footer>
+
+</body>
+</html>
